@@ -1,9 +1,9 @@
 # Site settings
-title: Xinbo Blog
+title: xinbo的devops之旅
 SEOTitle: Xinbo的博客 | Xinbo Blog
 header-img: img/post-bg-os-metro.jpg
 email: 1643270679@qq.com
-description: ""
+description: "xinbo的个人记录"
 keyword: "xinbo 昕博 Devops CI Python Django Vue"
 url: "https://huangxuan.me"              # your host, for absolute URL
 baseurl: ""                             # for example, '/blog' if your blog hosted on 'host/blog'
