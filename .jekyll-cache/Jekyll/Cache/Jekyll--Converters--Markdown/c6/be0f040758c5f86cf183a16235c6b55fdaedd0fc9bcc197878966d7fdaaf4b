@@ -1,0 +1,369 @@
+I"�E<h1 id="django--ant-design-vue-搭建web平台前后端整合">Django + Ant Design Vue 搭建web平台——前后端整合</h1>
+
+<ul>
+  <li>系统 ubuntu2004</li>
+  <li>Docker内搭建（可选）</li>
+</ul>
+
+<h2 id="django安装与初始化">Django安装与初始化</h2>
+
+<h3 id="本地安装">本地安装</h3>
+
+<p>安装django</p>
+
+<blockquote>
+  <p>自行安装python3 及 python3-pip，本环境python版本3.8.10，建议版本3.6及以上</p>
+</blockquote>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>pip3 <span class="nb">install </span>django
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>检查django版本</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre>Python 3.8.10 <span class="o">(</span>default, Sep 28 2021, 16:10:42<span class="o">)</span>
+<span class="o">[</span>GCC 9.3.0] on linux
+Type <span class="s2">"help"</span>, <span class="s2">"copyright"</span>, <span class="s2">"credits"</span> or <span class="s2">"license"</span> <span class="k">for </span>more information.
+<span class="o">&gt;&gt;&gt;</span> import django
+<span class="o">&gt;&gt;&gt;</span> django.get_version<span class="o">()</span>
+<span class="s1">'3.2.8'</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>新建项目</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>python3 <span class="nt">-m</span> django startproject mysite
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>初始化结构如下</p>
+
+<blockquote>
+  <p>README.md不是该命令生成，自己添加</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre>
+├── README.md
+├── manage.py
+└── mysite
+    ├── __init__.py
+    ├── asgi.py
+    ├── settings.py
+    ├── urls.py
+    └── wsgi.py
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>启动</p>
+
+<blockquote>
+  <ul>
+    <li>可以不使用 <your_id>:<your_port> ，直接python3 manage.py runserver，直接访问 http://127.0.0.1:8000/</your_port></your_id></li>
+    <li>如果指定ip，需要修改 settings.py ，在 ALLOWED_HOSTS 列表中添加指定的ip</li>
+  </ul>
+</blockquote>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>python3 manage.py runserver &lt;your_id&gt;:&lt;your_port&gt;
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>启动成功后访问 http://<your_id>:<your_port>/，正常情况下可以看到一个小火箭</your_port></your_id></p>
+
+<h3 id="docker内安装">docker内安装</h3>
+
+<blockquote>
+  <p>基础镜像为docker hub获取的ubuntu2004</p>
+</blockquote>
+
+<p>运行docker</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker run <span class="nt">-it</span> <span class="nt">-v</span> &lt;code_path&gt;:&lt;code_path&gt; <span class="nt">-p</span> 80:8001 &lt;images&gt; /bin/bash
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<blockquote>
+  <p>通过-p映射docker内端口</p>
+
+  <p>docker内安装django方法同本地</p>
+</blockquote>
+
+<p>在docker内运行</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="nb">cd</span> &lt;code_path&gt;
+python3 manage.py runserver 0.0.0.0:8001
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>在浏览器访问 <宿主机ip>:80 ，效果与本地运行一致</宿主机ip></p>
+
+<blockquote>
+  <p>默认接下来的操作均在docker 中进行</p>
+</blockquote>
+
+<h2 id="ant-design-vue环境搭建">Ant Design Vue环境搭建</h2>
+
+<h3 id="安装构建工具npmcnpm">安装构建工具npm/cnpm</h3>
+
+<p>安装nodejs</p>
+
+<blockquote>
+  <p>安装过程中可能会选地区，Asia Shanghai</p>
+</blockquote>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>apt <span class="nb">install </span>nodejs
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>检查node版本</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>node <span class="nt">--version</span>
+v10.19.0
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>安装npm</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>apt <span class="nb">install </span>npm
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>检查npm版本</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>npm <span class="nt">--version</span>
+6.14.4
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>使用国内淘宝仓库</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>npm config <span class="nb">set </span>registry https://registry.npm.taobao.org
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>node升级</p>
+
+<blockquote>
+  <p>当出现npm不支持node版本的情况下</p>
+</blockquote>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>npm <span class="nt">--version</span>
+npm WARN npm npm does not support Node.js v10.19.0
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>执行</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>npm <span class="nb">install </span>n <span class="nt">-g</span>
+n latest
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>检查版本</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>node <span class="nt">-v</span> <span class="o">&amp;&amp;</span> npm <span class="nt">-v</span>
+v16.11.0
+8.0.0
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="前端代码构建">前端代码构建</h3>
+
+<p>克隆 ant design vue pro的代码</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>git clone <span class="nt">--depth</span><span class="o">=</span>1 https://github.com/vueComponent/ant-design-vue-pro.git vue-frontend
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>npm升级</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>npm <span class="nb">install</span> <span class="nt">-g</span> npm
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>执行install</p>
+
+<blockquote>
+  <p>执行完之后可以看到文件夹下新增了node_modules文件夹及package-lock.json文件</p>
+
+  <p>node_modules文件夹里是安装的所有依赖库，比较大，如果前端是用git管理建议在.gitignore文件中过滤</p>
+</blockquote>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>npm <span class="nb">install</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>启动</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>npm run serve
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>访问端口可以看到ant design vue pro的界面，环境搭建成功</p>
+
+<h2 id="前后台整合">前后台整合</h2>
+
+<p>将 vue-frontend 放到与 mysite 同级，结构如下</p>
+
+<blockquote>
+  <p>如果后台使用git管理，可在.gitignore中将vue-frontend过滤</p>
+</blockquote>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre>./
+├── README.md
+├── db.sqlite3
+├── manage.py
+├── mysite
+└── vue-fronted  <span class="c"># 前端文件</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>vue-fronted/vue.config.js修改</p>
+
+<blockquote>
+  <p>默认 npm run build会将css和js文件夹生成在dist目录下，后续部署静态资源全部从static下获取，为了统一，增加如下配置，让css和js生成在 dist/static 下</p>
+</blockquote>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="c1">// vue.config.js</span>
+<span class="kd">const</span> <span class="nx">vueConfig</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="c1">// npm run build dist dir config</span>
+  <span class="na">runtimeCompiler</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="na">publicPath</span><span class="p">:</span> <span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">outputDir</span><span class="p">:</span> <span class="dl">'</span><span class="s1">dist</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">assetsDir</span><span class="p">:</span> <span class="dl">'</span><span class="s1">static</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">indexPath</span><span class="p">:</span> <span class="dl">'</span><span class="s1">index.html</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">filenameHashing</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="na">configureWebpack</span><span class="p">:</span> <span class="p">{</span>
+    <span class="p">...</span>
+  <span class="p">},</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>执行</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>npm update
+npm run build
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>生成静态文件夹dist</p>
+
+<p>mysite/settings.py 添加template配置</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="n">TEMPLATES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="p">...</span>
+        <span class="c1"># 增加static路径及前端index.html路径
+</span>        <span class="s">'DIRS'</span><span class="p">:</span> <span class="p">[</span><span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s">'static'</span><span class="p">),</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s">'vue-fronted/dist'</span><span class="p">)],</span>
+        <span class="p">...</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>mysite/settings.py 添加静态文件路由</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">STATICFILES_DIRS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s">'static/'</span><span class="p">),</span>
+    <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s">"vue-fronted/dist/static/"</span><span class="p">),</span>
+<span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>mysite/urls.py 添加vue工程入口</p>
+
+<blockquote>
+  <p>ant design vue pro入口为生成的dist/index.html</p>
+</blockquote>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">include</span>
+<span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">url</span>
+<span class="kn">from</span> <span class="nn">django.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">django.conf.urls.static</span> <span class="kn">import</span> <span class="n">static</span>
+<span class="kn">from</span> <span class="nn">django.views.generic.base</span> <span class="kn">import</span> <span class="n">TemplateView</span>
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># 后台 API Here
+</span>    <span class="c1"># vue入口
+</span>    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s">'^'</span><span class="p">,</span> <span class="n">TemplateView</span><span class="p">.</span><span class="n">as_view</span><span class="p">(</span><span class="n">template_name</span><span class="o">=</span><span class="s">"index.html"</span><span class="p">)),</span>
+<span class="p">]</span> <span class="o">+</span> <span class="n">static</span><span class="p">(</span><span class="n">settings</span><span class="p">.</span><span class="n">STATIC_URL</span><span class="p">,</span> <span class="n">document_root</span><span class="o">=</span><span class="n">settings</span><span class="p">.</span><span class="n">STATICFILES_DIRS</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>启动 Django</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>python3 manage.py runserver 0.0.0.0:9997
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>通过访问 9997 端口看到 ant design vue pro的界面，则前后台整合成功</p>
+
+<h2 id="官方文档参考资料">官方文档/参考资料</h2>
+
+<ul>
+  <li>Django官方文档：https://docs.djangoproject.com/zh-hans/3.2/</li>
+  <li>Ant Design Vue Pro：https://pro.antdv.com/docs/getting-started</li>
+  <li>Ant Design Vue：https://1x.antdv.com/docs/vue/introduce-cn/</li>
+</ul>
+
+:ET

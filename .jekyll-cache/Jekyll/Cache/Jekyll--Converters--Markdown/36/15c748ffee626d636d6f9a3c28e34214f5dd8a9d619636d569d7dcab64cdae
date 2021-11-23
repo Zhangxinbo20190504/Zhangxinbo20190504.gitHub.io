@@ -1,0 +1,86 @@
+I"�<h1 id="cppcheck部署">cppcheck部署</h1>
+
+<h2 id="直接安装">直接安装</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>apt install cppcheck
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="源码安装">源码安装</h2>
+
+<p>下载路径 https://sourceforge.net/projects/cppcheck/files/cppcheck/</p>
+
+<p>放在 /usr/local/cppcheck 下（路径可自定义）</p>
+
+<p>解压</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>tar zxvf cppcheck-2.6.tar.gz
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>安装</p>
+
+<blockquote>
+  <p>make时一定要指定CFGDIR，否则报错</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>cd cppcheck-2.6
+make CFGDIR=/usr/local/cppcheck/cppcheck-2.6/cfg/
+make install
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>检查版本</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>cppcheck --version
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="使用">使用</h2>
+
+<ul>
+  <li>
+    <p>基础用法</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>cppcheck &lt;path&gt;
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>
+    <p>多任务并行</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>cppcheck <span class="nt">-j</span> 4 &lt;path&gt;
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>
+    <p>输出xml格式</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>cppcheck <span class="nt">--xml</span> <span class="nt">--xml-version</span><span class="o">=</span>2 &lt;path&gt; 2&gt; cppcheck-report.xml
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>
+    <p>开启检查项</p>
+
+    <blockquote>
+      <p>可以使用多个enable，也可以使用enable=all</p>
+    </blockquote>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>cppcheck --enable=&lt;options&gt; &lt;path&gt;
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="jenkins集成">jenkins集成</h2>
+
+<p>安装jenkins插件 cppcheck</p>
+
+<p>安装完成后在 任务的 构建后操作 可选择 Publish Cppcheck result</p>
+
+<p><img src="C:\Users\anker\AppData\Roaming\Typora\typora-user-images\image-20211008121843715.png" alt="image-20211008121843715" /></p>
+
+:ET

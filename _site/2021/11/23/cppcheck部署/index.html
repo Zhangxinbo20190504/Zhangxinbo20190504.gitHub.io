@@ -12,17 +12,48 @@
 
     <!-- Open Graph -->
     <meta property="og:title"
-        content="Xinbo的博客 | Xinbo Blog">
+        content="CppCheck部署 - Xinbo的博客 | Xinbo Blog">
     
-    <meta property="og:type" content="website">
-    <meta property="og:description"
-        content="像我这样优秀的人，就该灿烂过一生">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="cppcheck部署
+
+直接安装
+
+1
+apt install cppcheck
+
+
+源码安装
+
+下载路径 https://sourceforge.net/projects/cppcheck/files/cppcheck/
+
+放在 /usr/local/cppcheck 下（路径可自定义）
+
+解压
+
+1
+tar zxvf cppcheck-2.6.tar.gz
+
+
+安装
+
+
+  make时一...">
+    
+    <meta property="article:published_time" content=" 2021-11-23T21:00:00Z">
+    
+    
+    <meta property="article:author" content="Xinbo">
+    
+    
+    <meta property="article:tag" content="工具部署">
+    
     
     <meta property="og:image" content="http://localhost:4000/img/avata-me.jpg">
-    <meta property="og:url" content="http://localhost:4000/">
+    <meta property="og:url" content="http://localhost:4000/2021/11/23/cppcheck%E9%83%A8%E7%BD%B2/">
     <meta property="og:site_name" content="Xinbo的博客 | Xinbo Blog">
 
-    <title>Xinbo的博客 | Xinbo Blog</title>
+    <title>CppCheck部署 - Xinbo的博客 | Xinbo Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -31,7 +62,7 @@
     <link rel="shortcut icon" href="/img/favicon.ico">
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="http://localhost:4000/">
+    <link rel="canonical" href="http://localhost:4000/2021/11/23/cppcheck%E9%83%A8%E7%BD%B2/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href=" /css/bootstrap.min.css">
@@ -195,258 +226,215 @@
   </div>
 </div>
 
-    <!-- Page Header -->
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-rwd.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
 
 
 
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/post-bg-rwd.jpg');
+        background: ;
+    }
 
+    
+</style>
 
+<header class="intro-header" >
 
-
-<header class="intro-header" style="background-image: url('/img/post-bg-os-metro.jpg')">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        
-        <div class="site-heading">
-        
-          <h1>Xinbo Blog</h1>
-          <span class="subheading">像我这样优秀的人，就该灿烂过一生</span>
+    <div class="header-mask"></div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/archive/?tag=%E5%B7%A5%E5%85%B7%E9%83%A8%E7%BD%B2" title="工具部署">工具部署</a>
+                        
+                    </div>
+                    <h1>CppCheck部署</h1>
+                    
+                    <h2 class="subheading">基于ubuntu2004</h2>
+                    <span class="meta">Posted by Xinbo on November 23, 2021</span>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </header>
 
 
-<!-- Main Content -->
-<div class="container">
-  <div class="row">
-    
-
-    <!-- USE SIDEBAR -->
-    <!-- PostList Container -->
-    <div class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1 col-sm-12
-      col-xs-12 postlist-container">
-      
-<div class="post-preview">
-    <a href="/2021/11/24/Django-+-Ant-Design-Vue-%E6%90%AD%E5%BB%BAweb%E5%B9%B3%E5%8F%B0/">
-        <h2 class="post-title">
-            Django + Ant Design Vue 搭建web平台
-        </h2>
-        
-        <h3 class="post-subtitle">
-            前后端整合
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                Django + Ant Design Vue 搭建web平台——前后端整合
 
 
-  系统 ubuntu2004
-  Docker内搭建（可选）
 
 
-Django安装与初始化
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
 
-本地安装
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
 
-安装django
+                <!-- Multi-Lingual -->
+                
 
+				<h1 id="cppcheck部署">cppcheck部署</h1>
 
-  自行安装python3 及 python3-pip，本环境python版本3.8.10，建议版本3.6及以上
+<h2 id="直接安装">直接安装</h2>
 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>apt install cppcheck
+</pre></td></tr></tbody></table></code></pre></div></div>
 
-1
-pip3 install django
+<h2 id="源码安装">源码安装</h2>
 
+<p>下载路径 https://sourceforge.net/projects/cppcheck/files/cppcheck/</p>
 
-检查django...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Xinbo on November 24, 2021
-    </p>
-</div>
-<hr>
+<p>放在 /usr/local/cppcheck 下（路径可自定义）</p>
 
-<div class="post-preview">
-    <a href="/2021/11/23/sonarqube-%E6%90%AD%E5%BB%BA/">
-        <h2 class="post-title">
-            SonarQube部署
-        </h2>
-        
-        <h3 class="post-subtitle">
-            基于ubuntu2004
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                Ubuntu 2004 sonarqube 搭建
+<p>解压</p>
 
-安装依赖
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>tar zxvf cppcheck-2.6.tar.gz
+</pre></td></tr></tbody></table></code></pre></div></div>
 
+<p>安装</p>
 
-  
-    非root账户登录服务器
-  
-  
-    安装java11
+<blockquote>
+  <p>make时一定要指定CFGDIR，否则报错</p>
+</blockquote>
 
-    1
-sudo apt install openjdk-11-jdk
-    
-  
-  
-    安装数据库 postgresql
-
-    
-      备注：SonarQube 7.9之后不再支持MySQL数据库
-    
-
-    1...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Xinbo on November 23, 2021
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2021/11/23/jenkins%E6%90%AD%E5%BB%BA/">
-        <h2 class="post-title">
-            Jenkins部署
-        </h2>
-        
-        <h3 class="post-subtitle">
-            基于ubuntu2004
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                ubuntu2004 jenkins搭建
-
-安装java
-
-1
-2
-apt install openjdk-11-jdk
-java --version
-
-
-安装jenkins
-
-1
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
-4
-5
-6
-7
-# 导入 Jenkins 软件源的 GPG keys，添加软件源到系统
-wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key ...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Xinbo on November 23, 2021
-    </p>
-</div>
-<hr>
+</pre></td><td class="rouge-code"><pre>cd cppcheck-2.6
+make CFGDIR=/usr/local/cppcheck/cppcheck-2.6/cfg/
+make install
+</pre></td></tr></tbody></table></code></pre></div></div>
 
-<div class="post-preview">
-    <a href="/2021/11/23/cppcheck%E9%83%A8%E7%BD%B2/">
-        <h2 class="post-title">
-            CppCheck部署
-        </h2>
+<p>检查版本</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>cppcheck --version
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="使用">使用</h2>
+
+<ul>
+  <li>
+    <p>基础用法</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>cppcheck &lt;path&gt;
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>
+    <p>多任务并行</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>cppcheck <span class="nt">-j</span> 4 &lt;path&gt;
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>
+    <p>输出xml格式</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>cppcheck <span class="nt">--xml</span> <span class="nt">--xml-version</span><span class="o">=</span>2 &lt;path&gt; 2&gt; cppcheck-report.xml
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>
+    <p>开启检查项</p>
+
+    <blockquote>
+      <p>可以使用多个enable，也可以使用enable=all</p>
+    </blockquote>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>cppcheck --enable=&lt;options&gt; &lt;path&gt;
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="jenkins集成">jenkins集成</h2>
+
+<p>安装jenkins插件 cppcheck</p>
+
+<p>安装完成后在 任务的 构建后操作 可选择 Publish Cppcheck result</p>
+
+<p><img src="C:\Users\anker\AppData\Roaming\Typora\typora-user-images\image-20211008121843715.png" alt="image-20211008121843715" /></p>
+
+
+
+                <hr style="visibility: hidden;">
+                <!-- <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2021/11/23/Hello/" data-toggle="tooltip" data-placement="top" title="New Start">
+                        Previous<br>
+                        <span>New Start</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2021/11/23/jenkins%E6%90%AD%E5%BB%BA/" data-toggle="tooltip" data-placement="top" title="Jenkins部署">
+                        Next<br>
+                        <span>Jenkins部署</span>
+                        </a>
+                    </li>
+                    
+                </ul> -->
+                <hr style="visibility: hidden;">
+
+                
+                <!-- disqus 评论框 start -->
+                <!-- <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div> -->
+                <!-- disqus 评论框 end -->
+                
+
+                
+            </div>  
+
+    <!-- Side Catalog Container -->
         
-        <h3 class="post-subtitle">
-            基于ubuntu2004
-        </h3>
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
         
-        <div class="post-content-preview">
-            
-                cppcheck部署
 
-直接安装
-
-1
-apt install cppcheck
-
-
-源码安装
-
-下载路径 https://sourceforge.net/projects/cppcheck/files/cppcheck/
-
-放在 /usr/local/cppcheck 下（路径可自定义）
-
-解压
-
-1
-tar zxvf cppcheck-2.6.tar.gz
-
-
-安装
-
-
-  make时一...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Xinbo on November 23, 2021
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2021/11/23/Hello/">
-        <h2 class="post-title">
-            New Start
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Hello World, Hello Blog
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                新的开始
-
-终于有个地方可以写博客了
-
-做持续集成工程师也4年了，对CI/CD Devops有了一点自己的理解
-
-在这里做个记录，如果可以帮助到不小心点开的你，就很开心了
-
-让我们一起，持续改进！
-
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Xinbo on November 23, 2021
-    </p>
-</div>
-<hr>
-
-
-<!-- Pager -->
-
-
-    </div>
     <!-- Sidebar Container -->
-    <div class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-12
-      col-xs-12 sidebar-container">
-      <!-- Featured Tags -->
-      
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
 
 
 <section>
+    
+        <hr class="hidden-sm hidden-xs">
     
     <h5><a href="/archive/">FEATURED TAGS</a></h5>
     <div class="tags">
@@ -479,67 +467,77 @@ tar zxvf cppcheck-2.6.tar.gz
 </section>
 
 
-      <!-- Short About -->
-      <section class="visible-md visible-lg">
-  <hr>
-  <h5><a href="/about/">ABOUT ME</a></h5>
-  <div class="short-about">
-    
-    <img src="/img/avata-me.jpg" />
-    
-    
-    <p>Xinbo 资深球迷 一个假程序员 devops入门读者 狂热的流程改进分子</p>
-    
-    <!-- SNS Link -->
-    
-
-
-<ul class="list-inline">
-
-
-  
-  
-  
-  
-  
-  
-  <li>
-    <a target="_blank" href="https://github.com/Zhangxinbo20190504">
-      <span class="fa-stack fa-lg">
-        <i class="fa fa-circle fa-stack-2x"></i>
-        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-      </span>
-    </a>
-  </li>
-  
-  
-</ul>
-  </div>
-</section>
-
-      <!-- Friends Blog -->
-      
+                <!-- Friends Blog -->
+                
 <hr>
 <h5>FRIENDS</h5>
 <ul class="list-inline">
   
 </ul>
 
-
-      <!-- Ads -->
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- first shot -->
-<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6487568398225121" data-ad-slot="4814308751"
-     data-ad-format="auto" data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
+            </div>
+        </div>
     </div>
-    
-  </div>
-</div>
+</article>
 
+<!-- add support for mathjax by voleking-->
+
+
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "hux";
+    var disqus_identifier = "/2021/11/23/cppcheck部署";
+    var disqus_url = "http://localhost:4000/2021/11/23/cppcheck%E9%83%A8%E7%BD%B2/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'right',
+          // icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
 
 
 

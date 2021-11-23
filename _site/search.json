@@ -1,6 +1,38 @@
 [
   
     {
+      "title"    : "Django + Ant Design Vue 搭建web平台",
+      "subtitle" : "前后端整合",
+      "tags"     : "Django, Vue",
+      "url"      : "/2021/11/24/Django-+-Ant-Design-Vue-%E6%90%AD%E5%BB%BAweb%E5%B9%B3%E5%8F%B0/",
+      "date"     : "2021-11-24 01:00:00 +0800"
+    } ,
+  
+    {
+      "title"    : "SonarQube部署",
+      "subtitle" : "基于ubuntu2004",
+      "tags"     : "工具部署",
+      "url"      : "/2021/11/23/sonarqube-%E6%90%AD%E5%BB%BA/",
+      "date"     : "2021-11-23 23:00:00 +0800"
+    } ,
+  
+    {
+      "title"    : "Jenkins部署",
+      "subtitle" : "基于ubuntu2004",
+      "tags"     : "工具部署",
+      "url"      : "/2021/11/23/jenkins%E6%90%AD%E5%BB%BA/",
+      "date"     : "2021-11-23 22:00:00 +0800"
+    } ,
+  
+    {
+      "title"    : "CppCheck部署",
+      "subtitle" : "基于ubuntu2004",
+      "tags"     : "工具部署",
+      "url"      : "/2021/11/23/cppcheck%E9%83%A8%E7%BD%B2/",
+      "date"     : "2021-11-23 21:00:00 +0800"
+    } ,
+  
+    {
       "title"    : "New Start",
       "subtitle" : "Hello World, Hello Blog",
       "tags"     : "生活",

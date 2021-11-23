@@ -1,0 +1,116 @@
+I"Y<h1 id="ubuntu2004-jenkins搭建">ubuntu2004 jenkins搭建</h1>
+
+<h2 id="安装java">安装java</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>apt <span class="nb">install </span>openjdk-11-jdk
+java <span class="nt">--version</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="安装jenkins">安装jenkins</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="c"># 导入 Jenkins 软件源的 GPG keys，添加软件源到系统</span>
+wget <span class="nt">-q</span> <span class="nt">-O</span> - https://pkg.jenkins.io/debian/jenkins.io.key | <span class="nb">sudo </span>apt-key add -
+<span class="nb">sudo </span>sh <span class="nt">-c</span> <span class="s1">'echo deb http://pkg.jenkins.io/debian-stable binary/ &gt; /etc/apt/sources.list.d/jenkins.list'</span>
+
+<span class="c"># 执行apt</span>
+<span class="nb">sudo </span>apt update
+<span class="nb">sudo </span>apt <span class="nb">install </span>jenkins
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<blockquote>
+  <p>安装完成后，jenkins自动启动</p>
+</blockquote>
+
+<p>查询jenkins状态</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+</pre></td><td class="rouge-code"><pre>systemctl status jenkins
+<span class="c"># 输出</span>
+● jenkins.service - LSB: Start Jenkins at boot <span class="nb">time
+     </span>Loaded: loaded <span class="o">(</span>/etc/init.d/jenkins<span class="p">;</span> generated<span class="o">)</span>
+     Active: active <span class="o">(</span>exited<span class="o">)</span> since Sun 2021-09-26 09:03:38 CST<span class="p">;</span> 4 days ago
+       Docs: man:systemd-sysv-generator<span class="o">(</span>8<span class="o">)</span>
+      Tasks: 0 <span class="o">(</span>limit: 38022<span class="o">)</span>
+     Memory: 0B
+     CGroup: /system.slice/jenkins.service
+
+Sep 26 09:03:29 ankerubuntu2004 systemd[1]: Starting LSB: Start Jenkins at boot time...
+Sep 26 09:03:36 ankerubuntu2004 jenkins[1700]: Correct java version found
+Sep 26 09:03:36 ankerubuntu2004 jenkins[1700]:  <span class="k">*</span> Starting Jenkins Automation Server jenkins
+Sep 26 09:03:37 ankerubuntu2004 su[2442]: <span class="o">(</span>to jenkins<span class="o">)</span> root on none
+Sep 26 09:03:37 ankerubuntu2004 su[2442]: pam_unix<span class="o">(</span>su-l:session<span class="o">)</span>: session opened <span class="k">for </span>user jenkins by <span class="o">(</span><span class="nv">uid</span><span class="o">=</span>0<span class="o">)</span>
+Sep 26 09:03:37 ankerubuntu2004 su[2442]: pam_unix<span class="o">(</span>su-l:session<span class="o">)</span>: session closed <span class="k">for </span>user jenkins
+Sep 26 09:03:38 ankerubuntu2004 jenkins[1700]:    ...done.
+Sep 26 09:03:38 ankerubuntu2004 systemd[1]: Started LSB: Start Jenkins at boot time.
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>访问 http://your_ip_or_domain:8080 查看jenkins</p>
+
+<p>首次登录会要求</p>
+
+<ul>
+  <li>从部署服务器粘贴管理员密码</li>
+  <li>安装推荐的默认插件</li>
+  <li>设置admin账户的密码</li>
+</ul>
+
+<h2 id="docker搭建方法">docker搭建方法</h2>
+
+<blockquote>
+  <p>参考：https://hub.docker.com/_/jenkins</p>
+</blockquote>
+
+<h2 id="常见问题处理">常见问题处理</h2>
+
+<h3 id="权限配置错误导致进不去">权限配置错误导致进不去</h3>
+
+<p>找到jenkins 配置文件config.xml，通常在 /var/lib/jenkins/config.xml</p>
+
+<p>修改如下配置</p>
+
+<blockquote>
+  <p>任何用户可以做任何事(没有任何限制)</p>
+</blockquote>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;authorizationStrategy</span> <span class="na">class=</span><span class="s">"hudson.security.AuthorizationStrategy$Unsecured"</span><span class="nt">/&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>或者</p>
+
+<blockquote>
+  <p>登录用户可以做任何事</p>
+</blockquote>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;authorizationStrategy</span> <span class="na">class=</span><span class="s">"hudson.security.FullControlOnceLoggedInAuthorizationStrategy"</span><span class="nt">/&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>重启jenkins，使用初始账户登录，重新配置权限即可</p>
+:ET
