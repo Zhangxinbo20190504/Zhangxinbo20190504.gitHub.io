@@ -1,0 +1,363 @@
+I"�3<h2 id="背景">背景</h2>
+
+<h3 id="软件开发环境的关键变化">软件开发环境的关键变化</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>对比项</th>
+      <th style="text-align: left">早期软件开发场景</th>
+      <th>现代软件开发场景</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>技术门槛</td>
+      <td style="text-align: left">高</td>
+      <td>低</td>
+    </tr>
+    <tr>
+      <td>应用领域</td>
+      <td style="text-align: left">科学计算、航空航天、军工、银行、通讯</td>
+      <td>商业、社交、创新</td>
+    </tr>
+    <tr>
+      <td>需求稳定度</td>
+      <td style="text-align: left">高</td>
+      <td>低</td>
+    </tr>
+    <tr>
+      <td>用户地位</td>
+      <td style="text-align: left">卖方市场</td>
+      <td>买方市场</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>时代在变化，由早期的卖方说了算，到现在的客户至上，必然导致了大量的竞争及软件产品的快速更迭，组织必然需要应对这些变化</p>
+
+<h3 id="组织的应对">组织的应对</h3>
+
+<p><img src="C:\Users\anker\AppData\Roaming\Typora\typora-user-images\image-20211123150127551.png" alt="image-20211123150127551" style="zoom:50%;" /></p>
+
+<p>管理理念的变迁</p>
+
+<p><img src="C:\Users\anker\AppData\Roaming\Typora\typora-user-images\image-20211123150218180.png" alt="image-20211123150218180" style="zoom:50%;" /></p>
+
+<p>现在更加注重产品！</p>
+
+<h2 id="研发痛点分析">研发痛点分析</h2>
+
+<h3 id="主流的软件开发流程">主流的软件开发流程</h3>
+
+<blockquote>
+  <p>下图展现了当前主流的软件开发流程</p>
+</blockquote>
+
+<p><img src="C:\Users\anker\AppData\Roaming\Typora\typora-user-images\image-20211123150742628.png" alt="image-20211123150742628" style="zoom:50%;" /></p>
+
+<h3 id="传统研发的痛点">传统研发的痛点</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>痛点</th>
+      <th>示意图</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>速度越来越慢</strong></td>
+      <td><img src="C:\Users\anker\AppData\Roaming\Typora\typora-user-images\image-20211123151630373.png" alt="image-20211123151630373" style="zoom:40%;" /></td>
+    </tr>
+    <tr>
+      <td><strong>多任务横行 疲于奔命</strong></td>
+      <td><img src="C:\Users\anker\AppData\Roaming\Typora\typora-user-images\image-20211123151734577.png" alt="image-20211123151734577" style="zoom:33%;" /></td>
+    </tr>
+    <tr>
+      <td><strong>对需求的理解不一致</strong></td>
+      <td><img src="C:\Users\anker\AppData\Roaming\Typora\typora-user-images\image-20211123151810225.png" alt="image-20211123151810225" style="zoom:33%;" /></td>
+    </tr>
+    <tr>
+      <td><strong>开发后期的持续“暴雷”</strong></td>
+      <td><img src="C:\Users\anker\AppData\Roaming\Typora\typora-user-images\image-20211123151900056.png" alt="image-20211123151900056" style="zoom:33%;" /></td>
+    </tr>
+    <tr>
+      <td><strong>系统设计混乱</strong></td>
+      <td><img src="C:\Users\anker\AppData\Roaming\Typora\typora-user-images\image-20211123151958755.png" alt="image-20211123151958755" style="zoom:33%;" /></td>
+    </tr>
+    <tr>
+      <td><strong>打补丁的方式修改权限</strong></td>
+      <td><img src="C:\Users\anker\AppData\Roaming\Typora\typora-user-images\image-20211123152053250.png" alt="image-20211123152053250" style="zoom:33%;" /></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>所以，为什么会有如此多的痛点呢？</p>
+
+<h3 id="痛点分析">痛点分析</h3>
+
+<p>传统的开发模式如下</p>
+
+<p><img src="C:\Users\anker\AppData\Roaming\Typora\typora-user-images\image-20211123152725159.png" alt="image-20211123152725159" style="zoom:50%;" /></p>
+
+<ul>
+  <li><strong>无法快速交付，无法快速实现价值</strong></li>
+  <li>
+    <p><strong>反馈慢，很多风险难以在早期暴露</strong></p>
+  </li>
+  <li><strong>因为相互依赖、多任务、工作量不均导致的计划协调困难</strong></li>
+</ul>
+
+<p><img src="C:\Users\anker\AppData\Roaming\Typora\typora-user-images\image-20211123153131388.png" alt="image-20211123153131388" style="zoom:50%;" /></p>
+
+<ul>
+  <li>
+    <p><strong>欠债过多</strong></p>
+
+    <p><img src="C:\Users\anker\AppData\Roaming\Typora\typora-user-images\image-20211123153151858.png" alt="image-20211123153151858" style="zoom:50%;" /></p>
+  </li>
+</ul>
+
+<blockquote>
+  <p>Software is the most complex task ever undertaken by humanity…”   ——Dr. Frederick Brooks(recipient of the ACM Turing award)</p>
+</blockquote>
+
+<ul>
+  <li><strong>忽略了软件开发的复杂性</strong></li>
+</ul>
+
+<h3 id="瀑布模型与迭代增量开发模型">瀑布模型与迭代增量开发模型</h3>
+
+<p><strong>瀑布模型</strong></p>
+
+<p><img src="C:\Users\anker\AppData\Roaming\Typora\typora-user-images\image-20211123153708577.png" alt="image-20211123153708577" style="zoom:50%;" /></p>
+
+<p><strong>瀑布模型的特点</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>优势</strong></th>
+      <th><strong>弱项</strong></th>
+      <th><strong>适用场景</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>简单线性适合大型组织</td>
+      <td>1、计划难做 2、过程不透明，难以跟踪；3、交接模型：文档；4、晚集成， 集成困难5、需求变更困难；6、开发过程难以逆转；7、晚测试，风险暴露8、质量控制；</td>
+      <td>1、需求清楚，全面，过程很少变化；2、开发人员对软件的应用领域很熟悉；3、用户参与度低；</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>迭代模型</strong></p>
+
+<p>多个功能同时做，由粗到细，逐步求精，最终完成整个软件</p>
+
+<p><img src="C:\Users\anker\AppData\Roaming\Typora\typora-user-images\image-20211123154030577.png" alt="image-20211123154030577" style="zoom:50%;" /></p>
+
+<p><strong>增量模型</strong>
+由少到多，先完成一部分功能，再完成一部分功能，直至完成整个软件</p>
+
+<p><img src="C:\Users\anker\AppData\Roaming\Typora\typora-user-images\image-20211123154139313.png" alt="image-20211123154139313" style="zoom:50%;" /></p>
+
+<p><strong>实际中，增量、迭代经常一起使用，又叫迭代增量式或迭代进化式</strong></p>
+
+<p><strong>迭代增量特点：</strong></p>
+
+<ul>
+  <li>实质上是若干个小瀑布</li>
+  <li>通过若干个阶段的开发，完成整个软件</li>
+  <li>每阶段完成之后，都有一个新版本发布</li>
+</ul>
+
+<p><img src="C:\Users\anker\AppData\Roaming\Typora\typora-user-images\image-20211123154309507.png" alt="image-20211123154309507" style="zoom:50%;" /></p>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>优势</strong></th>
+      <th><strong>弱项</strong></th>
+      <th><strong>适用场景</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1、需求变更容易；2、简单计划，逐步细化；3、合作模型；4、早集成，早测试；5、只是一个迭代的风险；6、有效计划，适应变化</td>
+      <td>1、开放式架构；2、组织工作；3、对开发团队要求更高；4、需要更多的技术支持和工具；</td>
+      <td>1、需求变更频繁；2、稳定的架构</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>基于迭代增量模型出现了如下开发方法</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>方法</th>
+      <th>描述</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>XP</td>
+      <td>eXtream Programing极限编程，包含了一套敏捷管理和工程实践</td>
+    </tr>
+    <tr>
+      <td>Scrum</td>
+      <td>目前最流行的敏捷方法，包含了一套完整的敏捷管理工程实践</td>
+    </tr>
+    <tr>
+      <td>Crystal</td>
+      <td>水晶项目管理体系：一个以人为本的小团队方法体系</td>
+    </tr>
+    <tr>
+      <td>DSDM</td>
+      <td>动态系统开发方法，据说在英国曾流行一时</td>
+    </tr>
+    <tr>
+      <td>FDD</td>
+      <td>特性驱动开发，是一个模型驱动的快速迭代开发过程</td>
+    </tr>
+    <tr>
+      <td>AUP</td>
+      <td>一个轻量级的RUP，RUP是一个面向对象的程序开发方法论</td>
+    </tr>
+    <tr>
+      <td>Lean</td>
+      <td>精益管理，在创造价值的目标下，通过改良流程不断地消除浪费</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="敏捷价值观">敏捷价值观</h2>
+
+<h3 id="雷鸟会议">雷鸟会议</h3>
+
+<p>2001年2月，17位软件开发领域的领军人物聚集在美国犹他州滑雪胜地雪鸟（Snowbird）雪场，经过两天的讨论：</p>
+
+<ul>
+  <li>概括出了一些可以让软件开发团队<strong>快速工作、响应变化能力</strong>的价值观和原则</li>
+  <li>采用<strong>“敏捷”</strong>一词来代表他们所倡导的开发思想</li>
+  <li>敏捷不是一种软件开发方法，而是<strong>一族</strong>，共同点是：以人为核心、迭代、循序渐进</li>
+  <li>成立<strong>敏捷联盟</strong>。</li>
+</ul>
+
+<h3 id="价值观详解">价值观详解</h3>
+
+<p><strong>核心：我们随时交付软件给客户</strong></p>
+
+<ul>
+  <li>
+    <p><strong>个体和交互 &gt; 流程和规范</strong></p>
+
+    <p>人是获得成功的最为重要的因素， 一个一流的程序员未必就是一个优秀的团队成员，合适的工具对于成功来说是必要的，团队的建设要比环境的建设重要得多</p>
+  </li>
+  <li>
+    <p><strong>可工作的软件&gt;面面俱到的文档</strong></p>
+
+    <p>没有文档的软件是一种灾难，过多的文档比过少的文档更糟
+Martin文档第一定律：直到迫切需要并且意义重大时，才来编制文档</p>
+
+    <p>Good code = Design Document   Good test= Requirement Document</p>
+  </li>
+  <li>
+    <p><strong>客户合作&gt;合同谈判</strong></p>
+
+    <p>不能像订购日用品一样订购软件
+开始就指明了需求细节、进度以及项目成本的合同，存在根本上的缺陷<br />
+成功的项目需要有序、频繁的客户反馈</p>
+  </li>
+  <li>
+    <p><strong>响应变化&gt;遵循计划</strong></p>
+
+    <p>计划不能考虑得过远
+商务环境很可能会变化
+客户看到系统开始运作，他们很可能会改变需求
+我们不能很好地估算出开发它们需要的时间</p>
+  </li>
+</ul>
+
+<p><strong>支撑敏捷价值观的12条原则</strong></p>
+
+<ul>
+  <li>我们最重要的目标，是通过持续不断地及早交付有价值的软件来使客户满意</li>
+  <li>欣然面对需求变化，即使在开发后期也一样。为了客户的竞争优势，要通过敏捷过程来适应变化</li>
+  <li>经常性地交付可以工作的软件，比如间隔几个星期或一两个月就交付，交付的时间间隔越短越好</li>
+  <li>业务人员和开发人员必须相互合作，项目中的每一天都不例外</li>
+  <li>激发个体的斗志，以他们为核心搭建项目。提供所需的环境和支持，辅以信任，从而达成目标</li>
+  <li>不论团队内外，效果最好且效率最高的传递信息的方式，就是面对面的交流</li>
+  <li>可以工作的软件是首要的进度度量标准</li>
+  <li>敏捷过程提倡可持续的开发速度。责任人、开发者和用户要能够共同维持其不掉稳定延续</li>
+  <li>坚持不懈地追求技术卓越和良好设计，敏捷能力由此增强</li>
+  <li>以简洁为本，它是极力减少不必要工作量的艺术</li>
+  <li>最好的架构、需求和设计出自自组织团队</li>
+  <li>团队定期地反思如何能提高成效，并依此调整自身的举止行为</li>
+</ul>
+
+<p><strong>敏捷和CMMI</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>敏捷</th>
+      <th>CMMI</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>适应性（Adaptive）</td>
+      <td>预见性（Predictive）</td>
+    </tr>
+    <tr>
+      <td>关注最终结果</td>
+      <td>关注过程及中间证据</td>
+    </tr>
+    <tr>
+      <td>What and how</td>
+      <td>What</td>
+    </tr>
+    <tr>
+      <td>简单、轻量级</td>
+      <td>大而全、重量级</td>
+    </tr>
+    <tr>
+      <td>不易形成标准</td>
+      <td>易形成标准</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="收益">收益</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>收益</th>
+      <th>示例</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>持续、快速的价值交付</td>
+      <td><img src="C:\Users\anker\AppData\Roaming\Typora\typora-user-images\image-20211123160209791.png" alt="image-20211123160209791" style="zoom:50%;" /></td>
+    </tr>
+    <tr>
+      <td>降低变化成本</td>
+      <td><img src="C:\Users\anker\AppData\Roaming\Typora\typora-user-images\image-20211123160130687.png" alt="image-20211123160130687" style="zoom:50%;" /></td>
+    </tr>
+    <tr>
+      <td>加快反馈</td>
+      <td><img src="C:\Users\anker\AppData\Roaming\Typora\typora-user-images\image-20211123160237340.png" alt="image-20211123160237340" style="zoom:50%;" /></td>
+    </tr>
+    <tr>
+      <td>多层次反馈</td>
+      <td><img src="C:\Users\anker\AppData\Roaming\Typora\typora-user-images\image-20211123160305664.png" alt="image-20211123160305664" style="zoom:50%;" /></td>
+    </tr>
+  </tbody>
+</table>
+
+:ET

@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "深入理解敏捷价值观",
+      "subtitle" : "为什么要敏捷？敏捷能带来什么？",
+      "tags"     : "敏捷",
+      "url"      : "/2021/11/24/%E6%95%8F%E6%8D%B7%E4%BB%B7%E5%80%BC%E8%A7%82/",
+      "date"     : "2021-11-24 03:00:00 +0800"
+    } ,
+  
+    {
       "title"    : "Django + Ant Design Vue 搭建web平台",
       "subtitle" : "前后端整合",
       "tags"     : "Django, Vue",

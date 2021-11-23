@@ -5,9 +5,383 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 23 Nov 2021 14:31:18 +0800</pubDate>
-    <lastBuildDate>Tue, 23 Nov 2021 14:31:18 +0800</lastBuildDate>
+    <pubDate>Tue, 23 Nov 2021 16:12:50 +0800</pubDate>
+    <lastBuildDate>Tue, 23 Nov 2021 16:12:50 +0800</lastBuildDate>
     <generator>Jekyll v4.2.1</generator>
+    
+      <item>
+        <title>深入理解敏捷价值观</title>
+        <description>&lt;h2 id=&quot;背景&quot;&gt;背景&lt;/h2&gt;
+
+&lt;h3 id=&quot;软件开发环境的关键变化&quot;&gt;软件开发环境的关键变化&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;对比项&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;早期软件开发场景&lt;/th&gt;
+      &lt;th&gt;现代软件开发场景&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;技术门槛&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;高&lt;/td&gt;
+      &lt;td&gt;低&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;应用领域&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;科学计算、航空航天、军工、银行、通讯&lt;/td&gt;
+      &lt;td&gt;商业、社交、创新&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;需求稳定度&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;高&lt;/td&gt;
+      &lt;td&gt;低&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;用户地位&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;卖方市场&lt;/td&gt;
+      &lt;td&gt;买方市场&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;时代在变化，由早期的卖方说了算，到现在的客户至上，必然导致了大量的竞争及软件产品的快速更迭，组织必然需要应对这些变化&lt;/p&gt;
+
+&lt;h3 id=&quot;组织的应对&quot;&gt;组织的应对&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2021/11/23/DZRPqCjLsHoFEz5.png&quot; alt=&quot;image-20211123150127551&quot; style=&quot;zoom:50%;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;管理理念的变迁&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2021/11/23/lVkpwQJjBcfu2vS.png&quot; alt=&quot;image-20211123150218180&quot; style=&quot;zoom:50%;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;现在更加注重产品！&lt;/p&gt;
+
+&lt;h2 id=&quot;研发痛点分析&quot;&gt;研发痛点分析&lt;/h2&gt;
+
+&lt;h3 id=&quot;主流的软件开发流程&quot;&gt;主流的软件开发流程&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;下图展现了当前主流的软件开发流程&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2021/11/23/iwos9OcB172AIjg.png&quot; alt=&quot;image-20211123150742628&quot; style=&quot;zoom:50%;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;传统研发的痛点&quot;&gt;传统研发的痛点&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;痛点&lt;/th&gt;
+      &lt;th&gt;示意图&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;速度越来越慢&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;img src=&quot;https://i.loli.net/2021/11/23/QihH4qfZmPFAsj5.png&quot; alt=&quot;image-20211123151630373&quot; style=&quot;zoom:40%;&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;多任务横行 疲于奔命&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;img src=&quot;https://i.loli.net/2021/11/23/lGMpWkdZA7cIY8e.png&quot; alt=&quot;image-20211123151734577&quot; style=&quot;zoom:33%;&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;对需求的理解不一致&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;img src=&quot;https://i.loli.net/2021/11/23/wPvdRlIMC9x5e7Y.png&quot; alt=&quot;image-20211123151810225&quot; style=&quot;zoom:33%;&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;开发后期的持续“暴雷”&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;img src=&quot;https://i.loli.net/2021/11/23/ebu7YAf3VGQ9Mxi.png&quot; alt=&quot;image-20211123151900056&quot; style=&quot;zoom:33%;&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;系统设计混乱&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;img src=&quot;https://i.loli.net/2021/11/23/e5dX4IFk7m8NqZK.png&quot; alt=&quot;image-20211123151958755&quot; style=&quot;zoom:33%;&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;打补丁的方式修改权限&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;img src=&quot;https://i.loli.net/2021/11/23/jIsDenrwxSaCvPo.png&quot; alt=&quot;image-20211123152053250&quot; style=&quot;zoom:33%;&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;所以，为什么会有如此多的痛点呢？&lt;/p&gt;
+
+&lt;h3 id=&quot;痛点分析&quot;&gt;痛点分析&lt;/h3&gt;
+
+&lt;p&gt;传统的开发模式如下&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2021/11/23/yQcIL5oqYfa7xjO.png&quot; alt=&quot;image-20211123152725159&quot; style=&quot;zoom:50%;&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;无法快速交付，无法快速实现价值&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;反馈慢，很多风险难以在早期暴露&lt;/strong&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;因为相互依赖、多任务、工作量不均导致的计划协调困难&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2021/11/23/JrwUA59HIeCVpT6.png&quot; alt=&quot;image-20211123153131388&quot; style=&quot;zoom:50%;&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;欠债过多&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;https://i.loli.net/2021/11/23/uOUy9FsEdtfMRBP.png&quot; alt=&quot;image-20211123153151858&quot; style=&quot;zoom:50%;&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Software is the most complex task ever undertaken by humanity…”   ——Dr. Frederick Brooks(recipient of the ACM Turing award)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;忽略了软件开发的复杂性&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;瀑布模型与迭代增量开发模型&quot;&gt;瀑布模型与迭代增量开发模型&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;瀑布模型&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2021/11/23/WzCt2XLgZVajHop.png&quot; alt=&quot;image-20211123153708577&quot; style=&quot;zoom:50%;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;瀑布模型的特点&lt;/strong&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;&lt;strong&gt;优势&lt;/strong&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;strong&gt;弱项&lt;/strong&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;strong&gt;适用场景&lt;/strong&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;简单线性适合大型组织&lt;/td&gt;
+      &lt;td&gt;1、计划难做 2、过程不透明，难以跟踪；3、交接模型：文档；4、晚集成， 集成困难5、需求变更困难；6、开发过程难以逆转；7、晚测试，风险暴露8、质量控制；&lt;/td&gt;
+      &lt;td&gt;1、需求清楚，全面，过程很少变化；2、开发人员对软件的应用领域很熟悉；3、用户参与度低；&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;strong&gt;迭代模型&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;多个功能同时做，由粗到细，逐步求精，最终完成整个软件&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2021/11/23/JZmItE3Bn1cauox.png&quot; alt=&quot;image-20211123154030577&quot; style=&quot;zoom:50%;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;增量模型&lt;/strong&gt;
+由少到多，先完成一部分功能，再完成一部分功能，直至完成整个软件&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2021/11/23/SJ1AZL8mhaxzYIy.png&quot; alt=&quot;image-20211123154139313&quot; style=&quot;zoom:50%;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;实际中，增量、迭代经常一起使用，又叫迭代增量式或迭代进化式&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;迭代增量特点：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;实质上是若干个小瀑布&lt;/li&gt;
+  &lt;li&gt;通过若干个阶段的开发，完成整个软件&lt;/li&gt;
+  &lt;li&gt;每阶段完成之后，都有一个新版本发布&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2021/11/23/BY2Vz7cGx5p1Fdm.png&quot; alt=&quot;image-20211123154309507&quot; style=&quot;zoom:50%;&quot; /&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;&lt;strong&gt;优势&lt;/strong&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;strong&gt;弱项&lt;/strong&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;strong&gt;适用场景&lt;/strong&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1、需求变更容易；2、简单计划，逐步细化；3、合作模型；4、早集成，早测试；5、只是一个迭代的风险；6、有效计划，适应变化&lt;/td&gt;
+      &lt;td&gt;1、开放式架构；2、组织工作；3、对开发团队要求更高；4、需要更多的技术支持和工具；&lt;/td&gt;
+      &lt;td&gt;1、需求变更频繁；2、稳定的架构&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;基于迭代增量模型出现了如下开发方法&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;方法&lt;/th&gt;
+      &lt;th&gt;描述&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;XP&lt;/td&gt;
+      &lt;td&gt;eXtream Programing极限编程，包含了一套敏捷管理和工程实践&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Scrum&lt;/td&gt;
+      &lt;td&gt;目前最流行的敏捷方法，包含了一套完整的敏捷管理工程实践&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Crystal&lt;/td&gt;
+      &lt;td&gt;水晶项目管理体系：一个以人为本的小团队方法体系&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;DSDM&lt;/td&gt;
+      &lt;td&gt;动态系统开发方法，据说在英国曾流行一时&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;FDD&lt;/td&gt;
+      &lt;td&gt;特性驱动开发，是一个模型驱动的快速迭代开发过程&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;AUP&lt;/td&gt;
+      &lt;td&gt;一个轻量级的RUP，RUP是一个面向对象的程序开发方法论&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Lean&lt;/td&gt;
+      &lt;td&gt;精益管理，在创造价值的目标下，通过改良流程不断地消除浪费&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;敏捷价值观&quot;&gt;敏捷价值观&lt;/h2&gt;
+
+&lt;h3 id=&quot;雷鸟会议&quot;&gt;雷鸟会议&lt;/h3&gt;
+
+&lt;p&gt;2001年2月，17位软件开发领域的领军人物聚集在美国犹他州滑雪胜地雪鸟（Snowbird）雪场，经过两天的讨论：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;概括出了一些可以让软件开发团队&lt;strong&gt;快速工作、响应变化能力&lt;/strong&gt;的价值观和原则&lt;/li&gt;
+  &lt;li&gt;采用&lt;strong&gt;“敏捷”&lt;/strong&gt;一词来代表他们所倡导的开发思想&lt;/li&gt;
+  &lt;li&gt;敏捷不是一种软件开发方法，而是&lt;strong&gt;一族&lt;/strong&gt;，共同点是：以人为核心、迭代、循序渐进&lt;/li&gt;
+  &lt;li&gt;成立&lt;strong&gt;敏捷联盟&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;价值观详解&quot;&gt;价值观详解&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;核心：我们随时交付软件给客户&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;个体和交互 &amp;gt; 流程和规范&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;p&gt;人是获得成功的最为重要的因素， 一个一流的程序员未必就是一个优秀的团队成员，合适的工具对于成功来说是必要的，团队的建设要比环境的建设重要得多&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;可工作的软件&amp;gt;面面俱到的文档&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;p&gt;没有文档的软件是一种灾难，过多的文档比过少的文档更糟
+Martin文档第一定律：直到迫切需要并且意义重大时，才来编制文档&lt;/p&gt;
+
+    &lt;p&gt;Good code = Design Document   Good test= Requirement Document&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;客户合作&amp;gt;合同谈判&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;p&gt;不能像订购日用品一样订购软件
+开始就指明了需求细节、进度以及项目成本的合同，存在根本上的缺陷&lt;br /&gt;
+成功的项目需要有序、频繁的客户反馈&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;响应变化&amp;gt;遵循计划&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;p&gt;计划不能考虑得过远
+商务环境很可能会变化
+客户看到系统开始运作，他们很可能会改变需求
+我们不能很好地估算出开发它们需要的时间&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;支撑敏捷价值观的12条原则&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;我们最重要的目标，是通过持续不断地及早交付有价值的软件来使客户满意&lt;/li&gt;
+  &lt;li&gt;欣然面对需求变化，即使在开发后期也一样。为了客户的竞争优势，要通过敏捷过程来适应变化&lt;/li&gt;
+  &lt;li&gt;经常性地交付可以工作的软件，比如间隔几个星期或一两个月就交付，交付的时间间隔越短越好&lt;/li&gt;
+  &lt;li&gt;业务人员和开发人员必须相互合作，项目中的每一天都不例外&lt;/li&gt;
+  &lt;li&gt;激发个体的斗志，以他们为核心搭建项目。提供所需的环境和支持，辅以信任，从而达成目标&lt;/li&gt;
+  &lt;li&gt;不论团队内外，效果最好且效率最高的传递信息的方式，就是面对面的交流&lt;/li&gt;
+  &lt;li&gt;可以工作的软件是首要的进度度量标准&lt;/li&gt;
+  &lt;li&gt;敏捷过程提倡可持续的开发速度。责任人、开发者和用户要能够共同维持其不掉稳定延续&lt;/li&gt;
+  &lt;li&gt;坚持不懈地追求技术卓越和良好设计，敏捷能力由此增强&lt;/li&gt;
+  &lt;li&gt;以简洁为本，它是极力减少不必要工作量的艺术&lt;/li&gt;
+  &lt;li&gt;最好的架构、需求和设计出自自组织团队&lt;/li&gt;
+  &lt;li&gt;团队定期地反思如何能提高成效，并依此调整自身的举止行为&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;敏捷和CMMI&lt;/strong&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;敏捷&lt;/th&gt;
+      &lt;th&gt;CMMI&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;适应性（Adaptive）&lt;/td&gt;
+      &lt;td&gt;预见性（Predictive）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;关注最终结果&lt;/td&gt;
+      &lt;td&gt;关注过程及中间证据&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;What and how&lt;/td&gt;
+      &lt;td&gt;What&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;简单、轻量级&lt;/td&gt;
+      &lt;td&gt;大而全、重量级&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;不易形成标准&lt;/td&gt;
+      &lt;td&gt;易形成标准&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;收益&quot;&gt;收益&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;收益&lt;/th&gt;
+      &lt;th&gt;示例&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;持续、快速的价值交付&lt;/td&gt;
+      &lt;td&gt;&lt;img src=&quot;https://i.loli.net/2021/11/23/AyawEtVpd5X8uhc.png&quot; alt=&quot;image-20211123160209791&quot; style=&quot;zoom:50%;&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;降低变化成本&lt;/td&gt;
+      &lt;td&gt;&lt;img src=&quot;https://i.loli.net/2021/11/23/L1uqvJyHIoxCgs2.png&quot; alt=&quot;image-20211123160130687&quot; style=&quot;zoom:50%;&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;加快反馈&lt;/td&gt;
+      &lt;td&gt;&lt;img src=&quot;https://i.loli.net/2021/11/23/OfI2S67dw1myQxn.png&quot; alt=&quot;image-20211123160237340&quot; style=&quot;zoom:50%;&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;多层次反馈&lt;/td&gt;
+      &lt;td&gt;&lt;img src=&quot;https://i.loli.net/2021/11/23/9UkGTo6PblvNsRL.png&quot; alt=&quot;image-20211123160305664&quot; style=&quot;zoom:50%;&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+</description>
+        <pubDate>Wed, 24 Nov 2021 03:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2021/11/24/%E6%95%8F%E6%8D%B7%E4%BB%B7%E5%80%BC%E8%A7%82/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/11/24/%E6%95%8F%E6%8D%B7%E4%BB%B7%E5%80%BC%E8%A7%82/</guid>
+        
+        <category>敏捷</category>
+        
+        
+      </item>
     
       <item>
         <title>Django + Ant Design Vue 搭建web平台</title>
