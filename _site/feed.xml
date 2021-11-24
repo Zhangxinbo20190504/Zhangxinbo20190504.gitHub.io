@@ -5,9 +5,286 @@
     <description>xinbo的个人记录</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 23 Nov 2021 17:48:06 +0800</pubDate>
-    <lastBuildDate>Tue, 23 Nov 2021 17:48:06 +0800</lastBuildDate>
+    <pubDate>Wed, 24 Nov 2021 18:30:41 +0800</pubDate>
+    <lastBuildDate>Wed, 24 Nov 2021 18:30:41 +0800</lastBuildDate>
     <generator>Jekyll v4.2.1</generator>
+    
+      <item>
+        <title>精益生产初探</title>
+        <description>&lt;h2 id=&quot;为什么要精益&quot;&gt;为什么要精益&lt;/h2&gt;
+
+&lt;p&gt;市场对硬件产品&lt;strong&gt;多快好省&lt;/strong&gt;的要求：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;多：定制化需求越来越多；&lt;/li&gt;
+  &lt;li&gt;快：产品开发的周期持续缩短；&lt;/li&gt;
+  &lt;li&gt;好：产品质量坚守底线持续提升；&lt;/li&gt;
+  &lt;li&gt;省：费用持续缩减。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;丰田的成功经验：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;高利润，能挣钱，它不香吗？&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2021/11/24/UpiSEFBeC3Q25M4.png&quot; alt=&quot;image-20211124164104596&quot; style=&quot;zoom: 80%;&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;丰田19年财报
+ 销售额：约合人民币19724亿元
+ 纯利润：约合人民币1368亿元&lt;/li&gt;
+  &lt;li&gt;丰田18年财报：
+ 销售额：约合人民币18534亿元
+ 纯利润：约合人民币1155亿元&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;精益的起源与发展&quot;&gt;精益的起源与发展&lt;/h2&gt;
+
+&lt;h3 id=&quot;说文解字的精益&quot;&gt;说文解字的精益&lt;/h3&gt;
+
+&lt;p&gt;精：完美 高品质 聚焦 专注&lt;/p&gt;
+
+&lt;p&gt;益：价值 利益 增长 进化&lt;/p&gt;
+
+&lt;h3 id=&quot;丰田精益的先驱&quot;&gt;丰田：精益的先驱&lt;/h3&gt;
+
+&lt;p&gt;战后，日本汽车工业的崛起，在工业体系被摧毁的条件下，用30年时间超过了美国，占世界汽车总量的30%以上，&lt;strong&gt;丰田生产方式(TPS)&lt;/strong&gt;功不可没！&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;1988年，《丰田生产方式》英文版发行，作者是丰田生产方式的缔造者&lt;strong&gt;大野耐一&lt;/strong&gt;，书中介绍了丰田的制造实践，阐述了&lt;strong&gt;准时化和自働化等丰田制造实践的本质&lt;/strong&gt;
+&lt;strong&gt;准时化&lt;/strong&gt;和&lt;strong&gt;自働化&lt;/strong&gt;是丰田生产方式方式的两大支柱，支持两大支柱的是&lt;strong&gt;看板&lt;/strong&gt;等具体实践，它们与西方管理中追求规模化效应的传统思维背道而驰，却在生产效率、响应速度及质量等方面具有明显的优势&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2021/11/24/KwHvbslmpBdr2Ec.png&quot; alt=&quot;image-20211124165043190&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;准时化&quot;&gt;准时化&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;准时化又称及时生产(JIT，Just In Time)，强调只在&lt;strong&gt;需要的时间和地点&lt;/strong&gt;生产&lt;strong&gt;需要&lt;/strong&gt;数量的东西，降低工厂的库存，从而加速流动和及时暴露问题&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2021/11/24/xRwCzlvodTIgAkf.png&quot; alt=&quot;image-20211124165307910&quot; style=&quot;zoom: 80%;&quot; /&gt;&lt;img src=&quot;https://i.loli.net/2021/11/24/BHh8gbQYtC1ao5r.png&quot; alt=&quot;image-20211124165328161&quot; style=&quot;zoom: 120%;&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;看板是实现准时化的重要工具，本意是信号卡片，实质是后道工序需要时，通过看板向前道工序发出信号，&lt;strong&gt;拉动&lt;/strong&gt;其&lt;strong&gt;按需&lt;/strong&gt;生产。拉动的源头是下游的&lt;strong&gt;客户价值&lt;/strong&gt;，即&lt;strong&gt;客户订单/需求&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;自働化&quot;&gt;自働化&lt;/h4&gt;
+
+&lt;p&gt;自働化JIDOKA(auto-no-mation)也就是“自动地不动”，是指出现问题时机器和生产线&lt;strong&gt;自动停止&lt;/strong&gt;，以触发&lt;strong&gt;现场现地解决问题&lt;/strong&gt;，并发现问题根源。丰田认为这相当于把人的智慧赋予了机器，称其为“人字旁的自动化”，所用用“働”而非“动”&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2021/11/24/OygCFdnNqpDvock.png&quot; alt=&quot;image-20211124165959373&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;自働化把&lt;strong&gt;质量内建&lt;/strong&gt;于每一个制造环节，出现异常时，杜绝继续产出不合格产品，不把不合格产品输入到下一个环节，从而实现质量内建，而不是让质量依赖于最后的检测环节&lt;/p&gt;
+
+&lt;h2 id=&quot;精益思想与原则&quot;&gt;精益思想与原则&lt;/h2&gt;
+
+&lt;h3 id=&quot;定义&quot;&gt;定义&lt;/h3&gt;
+
+&lt;p&gt;精益是关于有效组织&lt;strong&gt;人类活动&lt;/strong&gt;的一个新的思维方法&lt;/p&gt;
+
+&lt;p&gt;目标是&lt;strong&gt;消除浪费&lt;/strong&gt;，更多交付对个人和社会&lt;strong&gt;有用的价值&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;宏观框架&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2021/11/24/hX1PWnciSO3yxDM.png&quot; alt=&quot;image-20211124175131116&quot; style=&quot;zoom:80%;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;价值观固然重要，但不能提供足够的指导，脱离具体的方法学和实践，谈价值观难免空洞
+丰田的价值观看上去和其它公司没有太大的区别，真正区别于其它公司的是在这些价值观背后有完整的方法学支撑和与价值观相吻合的完整的实践集&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;两大支柱&lt;/strong&gt;：尊重他人 持续改进&lt;/p&gt;
+
+&lt;h3 id=&quot;精益价值观&quot;&gt;精益价值观&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;挑战现状：&lt;/strong&gt;我们构建长远的愿景，以勇气和创造力来面对挑战和实现梦想&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;改善：&lt;/strong&gt;我们持续改进业务运营，不断追求创新和进化&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;现地现物：&lt;/strong&gt;我们践行现地现物，去源头发现事实，做出正确决策，建立共识，最快速达成目标&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;尊重：&lt;/strong&gt;我们相互尊重，竭尽全力理解对方，承担责任，建立互信&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;团队协作：&lt;/strong&gt;我们激励个体及其职业的提升，共享发展机会，最大化个人和团队绩效&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;精益五原则&quot;&gt;精益五原则&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;定义价值：站在用户的视角定义什么是价值，并把它描述成具体的产品或服务&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;p&gt;​		精益的第一原则就是理解价值、定义价值，而价值只能由最终客户来确定（产品中顾客愿意付费购买的部分）。产品的价值只有在满足客户需求后才有意义，可以认为不贡献价值的活动就是浪费。
+​		丰田人眼中的“浪费”是Muda(浪费）,Muri(过载）及Mura(波动）的总称，显著有别于中文的“浪费”。浪费与否不是管理者决定的，而是由客户决定的。假如客户在缩短交付时间上特别在意，并愿意埋单，那么看似浪费的库存就不是浪费。&lt;/p&gt;
+
+    &lt;p&gt;&lt;strong&gt;七种浪费&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;大野耐一名言1：减少一成浪费，就等于增加一倍销售额！
+大野耐一名言2：员工奉献宝贵的时间给公司，如果不妥善运用他们的智慧，这是浪费—-第八大浪费&lt;/p&gt;
+    &lt;/blockquote&gt;
+
+    &lt;table&gt;
+      &lt;thead&gt;
+        &lt;tr&gt;
+          &lt;th&gt;浪费&lt;/th&gt;
+          &lt;th&gt;解释&lt;/th&gt;
+        &lt;/tr&gt;
+      &lt;/thead&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;过度生产&lt;/td&gt;
+          &lt;td&gt;先于客户或者下一道工序而生产&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;等待&lt;/td&gt;
+          &lt;td&gt;等待物料 信息或者决策&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;运输&lt;/td&gt;
+          &lt;td&gt;不必要的将物料从一地运到另一地&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;过度加工&lt;/td&gt;
+          &lt;td&gt;对一个任务不必要或者不正确的加工&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;库存&lt;/td&gt;
+          &lt;td&gt;物料或者信息的堆积&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;移动&lt;/td&gt;
+          &lt;td&gt;执行任务时不必要和无意义的走动&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;返工&lt;/td&gt;
+          &lt;td&gt;检验 重新加工 报废&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;识别价值流：识别价值流就是发现浪费和消灭浪费，是实施精益思想最重要的工具&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;p&gt;​		精益的第一价值流是指在产品开发过程中将原材料转化为产品，并且赋予其价值的全部活动。它包含原材料采购、产品加工以及通过销售渠道将产品提供给客户。
+​		价值流可以分为3种活动方式：①创造价值的活动；②虽不创造价值，却是产品开发过程中不可避免的活动；③完全不创造价值，而且可以立刻去除的活动。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;价值持续流动：所有的停滞都是企业的浪费，避免缺陷和返工造成的中断，完好的环境与设备，规模适当的人力与设备&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;p&gt;​		精益的第一价值流在确定了价值之后，企业要做的就是要使各个创造价值的活动均衡地、不间断地流动来。为了达成这一目标，需要打破组织层面可能阻断流动的一切因素（工种、职务、职能等）,同时要绝开发流程中可能出现的废品、中断和障碍，使价值流动起来。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;用户价值拉动：按照客户的需求投入和产出使之精确地按时得到所需，消除过早过量投入&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;p&gt;​		拉动是在需要的时间，按需要的品种和数量，用户有需求才生产
+​		拉动可以减少或消除过早、过多的投入，有效控制库存和制造中的产品数量，大幅压缩了前置时间。
+​		不是把用户不需要的产品强推给他们&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;精益求精：前4个原则的相互作用导致价值流动速度显著加快，就必须不断找出更隐蔽的浪费，持续的追求造就不断进步的企业&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;p&gt;​		追求极致的力量：大陆/台湾电子业的不良率普遍在千分之五到千分之十，丰田则是百万分之七
+​		哈佛商业评论：丰田最可怕的是一种追求极致的思维，而不是生产工具与方法而已
+​		日本经济新闻：丰田有着向极致企业挑战的改革基因&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;精益产品开发体系&quot;&gt;精益产品开发体系&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2021/11/24/3Fhidg9T4XZv5bk.png&quot; alt=&quot;image-20211124181204056&quot; style=&quot;zoom:67%;&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;流程与规范&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;在精益的概念中，流程是在绘制从原材料到最终产品的价值流图时所看到的一切
+精益产品开发体系并不十分关注文档中的流程，而是关注实际流程，是促使信息流动、设计方案演化、测试完成、原型制造并最终使产品呈现的日复一日的活动&lt;/p&gt;
+    &lt;/blockquote&gt;
+
+    &lt;p&gt;价值定义：明确由客户定义的价值，将增值与浪费区分开来&lt;/p&gt;
+
+    &lt;p&gt;前期投入：在产品开发流程前期充分研究可选方案，因为此时设计改动的空间最大&lt;/p&gt;
+
+    &lt;p&gt;标准化：利用严格的标准化减少变异，创建柔性和可预测的产出&lt;/p&gt;
+
+    &lt;p&gt;均衡化流程：建立一个均衡的产品开发流程&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;组织与人员&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;p&gt;总工程师制度: 建立自始至终领导整个项目开发的总工程师制度&lt;/p&gt;
+
+    &lt;p&gt;组织结构平衡:建立适当的组织结构，找到职能部门内技术专长与跨功能整合之间的平衡&lt;/p&gt;
+
+    &lt;p&gt;技术人才培养:为工程师构造尖塔形的知识结构&lt;/p&gt;
+
+    &lt;p&gt;供应商管理:将供应商完全整合到产品开发体系中&lt;/p&gt;
+
+    &lt;p&gt;学习和持续改进: 企业内部学习和持续改进&lt;/p&gt;
+
+    &lt;p&gt;企业文化:建立追求卓越、锐意进取的企业文化&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;工具与技术&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;p&gt;技术适应于人员和流程：调整技术适应人员和流程，使技术容易复制，调整新技术使其适应丰田模式&lt;/p&gt;
+
+    &lt;p&gt;高效沟通工具：运用直观、可视化的沟通方式来理顺组织&lt;/p&gt;
+
+    &lt;p&gt;组织学习工具：运用强大的工具做好标准化和组织学习&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;丰田最佳实践举例&quot;&gt;丰田最佳实践举例&lt;/h2&gt;
+
+&lt;h3 id=&quot;自工序完结&quot;&gt;自工序完结&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2021/11/24/wNjeVFWhcSqO7xR.png&quot; alt=&quot;image-20211124182250236&quot; style=&quot;zoom:80%;&quot; /&gt;&lt;img src=&quot;https://i.loli.net/2021/11/24/DKlV6JjNYtgeXfQ.png&quot; alt=&quot;image-20211124182304057&quot; style=&quot;zoom:80%;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;防患于未然的质量保证方法就是自工序完结，本质上是质量内建。
+自工序完结的定义：需要做到2个防止才算做到了完结。1.自己的工序不出现次品（防止产生）；2.如果加工失败了，有次品了，能挑出来。（防止流出）&lt;/p&gt;
+
+&lt;h3 id=&quot;大房间及可视化&quot;&gt;大房间及可视化&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2021/11/24/P9qg1dDp4yVAYFW.png&quot; alt=&quot;image-20211124182403236&quot; style=&quot;zoom:80%;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;大房间：集中办公、每日晨会等。
+可视化：形式不限、可物理可电子。任务满足3C要求：Clear 清楚、Concise  简短和Constructive  建设性。纸片只有3种颜色：黄色表示任务；红色表示风险；蓝色表示对策。&lt;/p&gt;
+
+&lt;h3 id=&quot;解决问题的8个步骤pdca&quot;&gt;解决问题的8个步骤（PDCA）&lt;/h3&gt;
+
+&lt;p&gt;１．现状把握
+２．识别问题，查明问题点
+３．设定目标
+４．查明真正原因
+５．制定对策（Plan）
+６．对策实施（Do）
+７．对结果和开展过程给予评价（Check）
+８．防止再发生／横展（Action)&lt;/p&gt;
+
+&lt;h3 id=&quot;5why分析法&quot;&gt;5why分析法&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;问题一：为什么机器停了？ 答案一：因为机器超载，保险丝烧断了。
+问题二：为什么机器会超载？答案二：因为轴承的润滑不足。
+问题三：为什么轴承会润滑不足？答案三：因为润滑泵失灵了。
+问题四：为什么润滑泵会失灵？ 答案四：因为它的轮轴耗损了。
+问题五：为什么润滑泵的轮轴会耗损？答案五：因为杂质跑到里面去了。
+经过连续五次不停地问“为什么”，才找到问题的真正原因和解决的方法，在润滑泵上加装滤网。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2021/11/24/dnXtyeN94zAKo3m.png&quot; alt=&quot;image-20211124182545086&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;5why分析法：又称“5问法”，也就是对一个问题点连续以5个“为什么”来自问，打破沙锅问到底，以追究其根本原因
+原则：对事不对人、基于事实、当事人在场、分析可控的原因……&lt;/p&gt;
+</description>
+        <pubDate>Thu, 25 Nov 2021 03:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2021/11/25/%E7%B2%BE%E7%9B%8A%E7%A0%94%E5%8F%91/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/11/25/%E7%B2%BE%E7%9B%8A%E7%A0%94%E5%8F%91/</guid>
+        
+        <category>精益</category>
+        
+        
+      </item>
     
       <item>
         <title>深入理解敏捷价值观</title>
@@ -100,7 +377,7 @@
       &lt;td&gt;&lt;img src=&quot;https://i.loli.net/2021/11/23/e5dX4IFk7m8NqZK.png&quot; alt=&quot;image-20211123151958755&quot; style=&quot;zoom:33%;&quot; /&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;打补丁的方式修改权限&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;打补丁的方式修改缺陷&lt;/strong&gt;&lt;/td&gt;
       &lt;td&gt;&lt;img src=&quot;https://i.loli.net/2021/11/23/jIsDenrwxSaCvPo.png&quot; alt=&quot;image-20211123152053250&quot; style=&quot;zoom:33%;&quot; /&gt;&lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
@@ -272,25 +549,25 @@
   &lt;li&gt;
     &lt;p&gt;&lt;strong&gt;可工作的软件&amp;gt;面面俱到的文档&lt;/strong&gt;&lt;/p&gt;
 
-    &lt;p&gt;没有文档的软件是一种灾难，过多的文档比过少的文档更糟
+    &lt;p&gt;没有文档的软件是一种灾难，过多的文档比过少的文档更糟；
 Martin文档第一定律：直到迫切需要并且意义重大时，才来编制文档&lt;/p&gt;
 
-    &lt;p&gt;Good code = Design Document   Good test= Requirement Document&lt;/p&gt;
+    &lt;p&gt;Good code = Design Document ；  Good test= Requirement Document&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;&lt;strong&gt;客户合作&amp;gt;合同谈判&lt;/strong&gt;&lt;/p&gt;
 
-    &lt;p&gt;不能像订购日用品一样订购软件
-开始就指明了需求细节、进度以及项目成本的合同，存在根本上的缺陷&lt;br /&gt;
+    &lt;p&gt;不能像订购日用品一样订购软件；
+开始就指明了需求细节、进度以及项目成本的合同，存在根本上的缺陷；&lt;br /&gt;
 成功的项目需要有序、频繁的客户反馈&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;&lt;strong&gt;响应变化&amp;gt;遵循计划&lt;/strong&gt;&lt;/p&gt;
 
-    &lt;p&gt;计划不能考虑得过远
-商务环境很可能会变化
-客户看到系统开始运作，他们很可能会改变需求
-我们不能很好地估算出开发它们需要的时间&lt;/p&gt;
+    &lt;p&gt;计划不能考虑得过远；
+商务环境很可能会变化；
+客户看到系统开始运作，他们很可能会改变需求；
+我们不能很好地估算出开发它们需要的时间；&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
