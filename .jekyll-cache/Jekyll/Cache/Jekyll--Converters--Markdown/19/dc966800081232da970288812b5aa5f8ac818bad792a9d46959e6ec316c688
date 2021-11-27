@@ -1,0 +1,153 @@
+I"k<h3 id="准备">准备</h3>
+
+<p>安装 windows powershell 和 Terminal</p>
+
+<p>应用商店 -&gt; 搜索powershell 或者 Terminal -&gt; 安装</p>
+
+<h3 id="启用功能">启用功能</h3>
+
+<p><img src="https://i.loli.net/2021/11/27/biwFqRVymHfea97.png" alt="image-20211123220941674" style="zoom:50%;" /></p>
+
+<blockquote>
+  <p>或者通过命令行</p>
+
+  <p>admin 模式（管理员权限）打开powershell</p>
+</blockquote>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="下载wsl">下载wsl</h3>
+
+<p>点此下载内核更新包 <a href="https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi">X86</a></p>
+
+<blockquote>
+  <p>安装完后可能需要重启</p>
+</blockquote>
+
+<h3 id="安装ubuntu">安装ubuntu</h3>
+
+<blockquote>
+  <p>管理员权限</p>
+</blockquote>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre> wsl <span class="nt">--set-default-version</span> 2
+ wsl <span class="nt">--install</span> <span class="nt">-d</span> Ubuntu-20.04  <span class="c"># 本次选择2004版本</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<blockquote>
+  <p>或者打开应用商店搜索 “Ubuntu 20.04”并安装</p>
+</blockquote>
+
+<p>安装完成后启动一次，设置用户名和密码</p>
+
+<h3 id="迁移wsl到非系统盘">迁移wsl到非系统盘</h3>
+
+<blockquote>
+  <p>为了防止系统盘过大，建议迁移wsl至非系统盘</p>
+</blockquote>
+
+<p>将WSL关闭</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>wsl <span class="nt">--shutdown</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>导出到F盘（可根据情况自己选择）</p>
+
+<blockquote>
+  <p>需要WSL这个目录存在</p>
+</blockquote>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>wsl <span class="nt">--export</span> Ubuntu-20.04 F:<span class="se">\W</span>SL<span class="se">\U</span>buntu-20.04.tar
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>注销ubuntu2004</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre> wsl <span class="nt">--unregister</span> Ubuntu-20.04
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>导出</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>wsl <span class="nt">--import</span> Ubuntu-20.04 F:<span class="se">\W</span>SL<span class="se">\U</span>buntu-20.04 F:<span class="se">\W</span>SL<span class="se">\U</span>buntu-20.04.tar <span class="nt">--version</span> 2
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>设置默认用户</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>ubuntu2004 config <span class="nt">--default-user</span> xinbo
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>删除tar文件</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">rm </span>F:<span class="se">\W</span>SL<span class="se">\U</span>buntu-20.04.tar
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="配置阿里云仓库">配置阿里云仓库</h3>
+
+<p>用下面内容替换掉 /etc/apt/sources.list</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="rouge-code"><pre>deb http://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse
+   
+deb http://mirrors.aliyun.com/ubuntu/ focal-security main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ focal-security main restricted universe multiverse
+   
+deb http://mirrors.aliyun.com/ubuntu/ focal-updates main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ focal-updates main restricted universe multiverse
+   
+deb http://mirrors.aliyun.com/ubuntu/ focal-proposed main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ focal-proposed main restricted universe multiverse
+   
+deb http://mirrors.aliyun.com/ubuntu/ focal-backports main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ focal-backports main restricted universe multiverse
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>更新缓存 升级</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="nb">sudo </span>apt-get update
+<span class="nb">sudo </span>apt-get upgrade
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="限制wsl内存使用">限制WSL内存使用</h3>
+
+<p>先使用管理员权限 powershell 命令关闭 wsl： <code class="language-plaintext highlighter-rouge">wsl --shutdown</code></p>
+
+<p>接着在用户文件夹下新建一个 .wslconfig 文件 <code class="language-plaintext highlighter-rouge">C:\Users\&lt;yourUserName&gt;\.wslconfig</code>，内容如下：`</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>[wsl2]
+memory=3GB
+swap=3GB
+localhostForwarding=true
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+:ET
