@@ -1,6 +1,22 @@
 [
   
     {
+      "title"    : "Django 实现Restful接口",
+      "subtitle" : "django restframework + drf_yasg",
+      "tags"     : "Django",
+      "url"      : "/2021/12/03/%E5%AE%9E%E7%8E%B0Django-API/",
+      "date"     : "2021-12-03 03:00:00 +0800"
+    } ,
+  
+    {
+      "title"    : "Django应用部署",
+      "subtitle" : "nginx + uwsgi",
+      "tags"     : "Django",
+      "url"      : "/2021/12/02/nginx-uwsgi%E9%83%A8%E7%BD%B2django%E5%BA%94%E7%94%A8/",
+      "date"     : "2021-12-02 03:00:00 +0800"
+    } ,
+  
+    {
       "title"    : "Win10 WSL部署",
       "subtitle" : "在win10上拥有一个ubuntu系统",
       "tags"     : "工具部署",

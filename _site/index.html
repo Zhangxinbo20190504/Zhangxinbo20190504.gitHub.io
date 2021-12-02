@@ -28,7 +28,7 @@
     <link rel="manifest" href="/pwa/manifest.json">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="shortcut icon" href="/img/blog.svg">
 
     <!-- Canonical URL -->
     <link rel="canonical" href="http://localhost:4000/">
@@ -229,6 +229,105 @@
     <div class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1 col-sm-12
       col-xs-12 postlist-container">
       
+<div class="post-preview">
+    <a href="/2021/12/03/%E5%AE%9E%E7%8E%B0Django-API/">
+        <h2 class="post-title">
+            Django 实现Restful接口
+        </h2>
+        
+        <h3 class="post-subtitle">
+            django restframework + drf_yasg
+        </h3>
+        
+        <div class="post-content-preview">
+            
+                第三方库安装
+
+安装 djangorestframework、drf_yasg
+
+
+  drf_yasg主要为了能自动生成文档
+
+
+1
+2
+pip3 install djangorestframework
+pip3 install drf_yasg
+
+
+在 settings.py 文件中将 rest_framework 加入 INSTALLED_APPS
+
+1
+2
+3
+4
+5
+6
+7
+INS...
+            
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Xinbo on December 3, 2021
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2021/12/02/nginx-uwsgi%E9%83%A8%E7%BD%B2django%E5%BA%94%E7%94%A8/">
+        <h2 class="post-title">
+            Django应用部署
+        </h2>
+        
+        <h3 class="post-subtitle">
+            nginx + uwsgi
+        </h3>
+        
+        <div class="post-content-preview">
+            
+                安装uwsgi
+
+1
+sudo apt-get install uwsgi
+
+
+创建 uwsgi.ini
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+[uwsgi]
+chdir=/opt/website/ci_backend   # 项目路径
+module=mysite.wsgi:application
+# wsgi-file...
+            
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Xinbo on December 2, 2021
+    </p>
+</div>
+<hr>
+
 <div class="post-preview">
     <a href="/2021/11/27/win10%E5%AE%89%E8%A3%85-WSL%E6%A8%A1%E6%8B%9Fubuntu%E7%8E%AF%E5%A2%83/">
         <h2 class="post-title">
@@ -590,32 +689,32 @@ tar zxvf cppcheck-2.6.tar.gz
         
         
         
-                <a data-sort="0007" 
+                <a data-sort="0009" 
                     href="/archive/?tag=%E7%94%9F%E6%B4%BB"
                     title="生活"
                     rel="1">生活</a>
         
-                <a data-sort="0004" 
+                <a data-sort="0006" 
                     href="/archive/?tag=%E5%B7%A5%E5%85%B7%E9%83%A8%E7%BD%B2"
                     title="工具部署"
                     rel="4">工具部署</a>
         
                 <a data-sort="0007" 
+                    href="/archive/?tag=Django"
+                    title="Django"
+                    rel="3">Django</a>
+        
+                <a data-sort="0009" 
                     href="/archive/?tag=%E6%95%8F%E6%8D%B7"
                     title="敏捷"
                     rel="1">敏捷</a>
         
-                <a data-sort="0007" 
+                <a data-sort="0009" 
                     href="/archive/?tag=%E7%B2%BE%E7%9B%8A"
                     title="精益"
                     rel="1">精益</a>
         
-                <a data-sort="0007" 
-                    href="/archive/?tag=Django"
-                    title="Django"
-                    rel="1">Django</a>
-        
-                <a data-sort="0007" 
+                <a data-sort="0009" 
                     href="/archive/?tag=Vue"
                     title="Vue"
                     rel="1">Vue</a>
