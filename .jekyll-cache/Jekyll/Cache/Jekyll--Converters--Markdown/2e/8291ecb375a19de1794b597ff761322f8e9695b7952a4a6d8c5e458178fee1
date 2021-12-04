@@ -1,0 +1,486 @@
+I"�e<h3 id="背景">背景</h3>
+
+<p>在Django开发中经常有许多耗时的任务，如调用第三方接口，邮件/短信发送等等，为了缩短请求的响应时间，最好把这些任务做成异步任务，还有一些任务需要周期执行，如数据缓存的清理，备份等工作，为了完成上述需求，需要借助一个工具。</p>
+
+<p>celery是一个高效的异步消息处理框架，仅需要简单的配置就可以轻松帮我们实现异步任务和定时任务</p>
+
+<p>celery通过中间人(Broker，通常选择rabbitMQ或者redis)将客户端发出的消息转交给celry worker来处理。</p>
+
+<p>本文介绍了以 rabbitmq作为中间人在django中集成celery的方法</p>
+
+<h3 id="安装celery">安装celery</h3>
+
+<blockquote>
+  <p>Django 版本3.2</p>
+</blockquote>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>pip3 <span class="nb">install </span><span class="nv">celery</span><span class="o">==</span>5.0.5
+pip3 <span class="nb">install </span>django-celery-beat<span class="o">==</span>2.2.0
+pip3 <span class="nb">install </span>django-celery-results<span class="o">==</span>2.0.1
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="安装rabbitmq">安装rabbitmq</h3>
+
+<blockquote>
+  <p>也可以选择redis作为中间人</p>
+</blockquote>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">sudo </span>apt-get <span class="nb">install </span>rabbitmq-server
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>新增用户</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>rabbitmqctl add_user ci ci
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>查看用户</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>rabbitmqctl list_users
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>设置管理员</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>rabbitmqctl set_user_tags ci administrator
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>添加虚拟环境并设置权限</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>rabbitmqctl add_vhost ci_backend
+rabbitmqctl set_permissions <span class="nt">-p</span> ci_backend ci <span class="s2">".*"</span> <span class="s2">".*"</span> <span class="s2">".*"</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>重启</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>rabbitmqctl stop
+rabbitmq-server restart
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="实现异步任务">实现异步任务</h3>
+
+<p>在 settings.py INSTALLED_APPS 中加入celery应用</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">...</span>
+    <span class="s">'celery'</span><span class="p">,</span>
+    <span class="s">'django_celery_beat'</span><span class="p">,</span>
+    <span class="s">'django_celery_results'</span><span class="p">,</span>
+   	<span class="p">...</span>
+<span class="p">]</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>执行</p>
+
+<blockquote>
+  <p>执行完后应该可以在数据库中看到新增了关于celery的数据表</p>
+</blockquote>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>python3 manage.py makemigrations
+python3 manage.py migrate
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>在 settings.py 增加celery相关配置</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre><span class="c1"># *celey配置
+</span><span class="n">CELERY_ENABLE_UTC</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">CELERY_TIMEZONE</span> <span class="o">=</span> <span class="s">"Asia/Shanghai"</span>
+<span class="n">CELERY_TASK_TRACK_STARTED</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">CELERY_TASK_TIME_LIMIT</span> <span class="o">=</span> <span class="mi">30</span> <span class="o">*</span> <span class="mi">600</span>
+<span class="n">CELERY_RESULT_BACKEND</span> <span class="o">=</span> <span class="s">'django-db'</span>
+<span class="n">CELERYD_TASK_TIME_LIMIT</span> <span class="o">=</span> <span class="mi">86400</span><span class="o">/</span><span class="mi">4</span>
+<span class="n">CELERYD_TASK_SOFT_TIME_LIMIT</span> <span class="o">=</span> <span class="mi">86400</span><span class="o">/</span><span class="mi">4</span>
+<span class="n">CELERY_IGNORE_RESULT</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">CELERY_BROKER_URL</span> <span class="o">=</span> <span class="s">'amqp://ci:ci@172.16.20.200/ci_backend'</span>
+<span class="n">CELERY_ACCEPT_CONTENT</span> <span class="o">=</span> <span class="p">[</span><span class="s">'application/json'</span><span class="p">,</span> <span class="p">]</span>
+<span class="n">CELERY_TASK_SERIALIZER</span> <span class="o">=</span> <span class="s">'json'</span>
+<span class="n">CELERY_RESULT_SERIALIZER</span> <span class="o">=</span> <span class="s">'json'</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>在settings.py同级增加 <strong>celery.py</strong>文件</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+</pre></td><td class="rouge-code"><pre><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">celery</span> <span class="kn">import</span> <span class="n">Celery</span><span class="p">,</span> <span class="n">platforms</span>
+<span class="kn">from</span> <span class="nn">celery.schedules</span> <span class="kn">import</span> <span class="n">crontab</span>
+<span class="kn">from</span> <span class="nn">kombu</span> <span class="kn">import</span> <span class="n">Exchange</span><span class="p">,</span> <span class="n">Queue</span>
+
+<span class="c1"># set the default Django settings module for the 'celery' program.
+</span><span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s">'DJANGO_SETTINGS_MODULE'</span><span class="p">,</span> <span class="s">'mysite.settings'</span><span class="p">)</span>
+
+<span class="c1"># 使用root执行celery须配置此项，但是后续celery启动时依然会有warning
+</span><span class="n">platforms</span><span class="p">.</span><span class="n">C_FORCE_ROOT</span> <span class="o">=</span> <span class="bp">True</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Celery</span><span class="p">(</span><span class="s">'mysite'</span><span class="p">)</span>
+
+<span class="n">app</span><span class="p">.</span><span class="n">config_from_object</span><span class="p">(</span><span class="s">'django.conf:settings'</span><span class="p">,</span> <span class="n">namespace</span><span class="o">=</span><span class="s">'CELERY'</span><span class="p">)</span>
+<span class="n">app</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="n">task_default_queue</span> <span class="o">=</span> <span class="s">'default'</span>
+<span class="n">app</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="n">task_default_exchange</span> <span class="o">=</span> <span class="s">'default'</span>
+<span class="n">app</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="n">task_default_routing_key</span> <span class="o">=</span> <span class="s">'default'</span>
+<span class="n">app</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="n">timezone</span> <span class="o">=</span> <span class="s">'Asia/Shanghai'</span>
+
+<span class="c1"># Load task modules from all registered Django app configs.
+</span><span class="n">app</span><span class="p">.</span><span class="n">autodiscover_tasks</span><span class="p">()</span>
+
+<span class="n">default_exchange</span> <span class="o">=</span> <span class="n">Exchange</span><span class="p">(</span><span class="s">'default'</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s">'direct'</span><span class="p">)</span>
+
+<span class="c1"># 任务列表
+</span><span class="n">app</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="n">task_queues</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">Queue</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="s">'default'</span><span class="p">),</span> <span class="n">default_exchange</span><span class="p">,</span> <span class="n">routing_key</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="s">'default'</span><span class="p">)),</span>
+<span class="p">)</span>
+
+<span class="c1"># 测试
+</span><span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">task</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">debug_task</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'Request: {0!r}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">request</span><span class="p">))</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>修改同级的 <strong>____init</strong><em>__</em>.py</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span>
+<span class="kn">from</span> <span class="nn">.celery</span> <span class="kn">import</span> <span class="n">app</span> <span class="k">as</span> <span class="n">celery_app</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">(</span><span class="s">'celery_app'</span><span class="p">,)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>在django的app文件夹下新建 tasks.py 文件，如 build_info/tasks.py</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="kn">from</span> <span class="nn">celery</span> <span class="kn">import</span> <span class="n">shared_task</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="o">@</span><span class="n">shared_task</span>
+<span class="k">def</span> <span class="nf">test_timed_tasks</span><span class="p">():</span>
+    <span class="n">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"----Tasks"</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>此时关于celery的任务就写好了，下面就是激动人心的部分了</p>
+
+<p>多开几个终端，在第一个终端中启动celery</p>
+
+<blockquote>
+  <p>mysite是我的celery app名字</p>
+</blockquote>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">cd</span> &lt;your project path&gt; celery <span class="nt">-A</span> mysite worker <span class="nt">-l</span> info
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>看到如下输出，则表明celery启动正常</p>
+
+<blockquote>
+  <p>观察 [tasks] 是否是我们前面注册的两个function</p>
+
+  <p>celery@sz-xinbo ready. 有没有ready的这句话</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+</pre></td><td class="rouge-code"><pre>/usr/local/lib/python3.8/dist-packages/celery/platforms.py:796: RuntimeWarning: You're running the worker with superuser privileges: this is
+absolutely not recommended!
+
+Please specify a different user using the --uid option.
+
+User information: uid=0 euid=0 gid=0 egid=0
+
+  warnings.warn(RuntimeWarning(ROOT_DISCOURAGED.format(
+
+ -------------- celery@sz-xinbo v5.0.5 (singularity)
+--- ***** -----
+-- ******* ---- Linux-5.4.0-90-generic-x86_64-with-glibc2.29 2021-12-03 17:49:28
+- *** --- * ---
+- ** ---------- [config]
+- ** ---------- .&gt; app:         mysite:0x7fddc40e3520
+- ** ---------- .&gt; transport:   amqp://ci:**@172.16.20.200:5672/ci_backend
+- ** ---------- .&gt; results:
+- *** --- * --- .&gt; concurrency: 8 (prefork)
+-- ******* ---- .&gt; task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** -----
+ -------------- [queues]
+                .&gt; default          exchange=default(direct) key=default
+
+
+[tasks]
+  . build_info.tasks.test_timed_tasks
+  . mysite.celery.debug_task
+
+[2021-12-03 17:49:29,154: INFO/MainProcess] Connected to amqp://ci:**@172.16.20.200:5672/ci_backend
+[2021-12-03 17:49:29,170: INFO/MainProcess] mingle: searching for neighbors
+[2021-12-03 17:49:30,204: INFO/MainProcess] mingle: all alone
+[2021-12-03 17:49:30,228: INFO/MainProcess] celery@sz-xinbo ready.
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>此时新开另一个终端</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">cd</span> &lt;your project path&gt; python3 ./manage.py shell
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>通过delay的方式执行我们刚才注册的function</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="o">&gt;&gt;&gt;</span> from build_info.tasks import <span class="k">*</span>
+<span class="o">&gt;&gt;&gt;</span> res <span class="o">=</span> test_timed_tasks.delay<span class="o">()</span>
+<span class="o">&gt;&gt;&gt;</span> res
+&lt;AsyncResult: 2de017ff-e0b9-4674-bf4a-b9942f075e66&gt;
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>可以发现执行后有一个返回的任务id，此时观察celery界面，会看到已经收到任务，并在我们的延时完成后显示任务成功执行</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="o">[</span>2021-12-03 17:50:06,661: INFO/MainProcess] Received task: build_info.tasks.test_timed_tasks[2de017ff-e0b9-4674-bf4a-b9942f075e66]
+<span class="o">[</span>2021-12-03 17:51:46,732: WARNING/ForkPoolWorker-8] <span class="nt">----Tasks</span>
+<span class="o">[</span>2021-12-03 17:51:46,752: INFO/ForkPoolWorker-8] Task build_info.tasks.test_timed_tasks[2de017ff-e0b9-4674-bf4a-b9942f075e66] succeeded <span class="k">in </span>100.08967352099717s: None
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>到此，通过celery的异步任务配置就成功了</p>
+
+<h3 id="实现定时任务">实现定时任务</h3>
+
+<p>通过celery还可以实现定时任务，依然以上文新建的任务build_info/tasks.py 中的 test_timed_tasks 为例，我们希望它隔一段时间就执行一次</p>
+
+<p>在celery.py中新增定时任务</p>
+
+<blockquote>
+  <p>通过 crontab 设定每2分钟执行一次</p>
+</blockquote>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="kn">from</span> <span class="nn">celery.schedules</span> <span class="kn">import</span> <span class="n">crontab</span>
+
+<span class="n">app</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="n">beat_schedule</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">'tests'</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">'task'</span><span class="p">:</span> <span class="s">'build_info.tasks.test_timed_tasks'</span><span class="p">,</span>
+        <span class="s">'schedule'</span><span class="p">:</span><span class="n">crontab</span><span class="p">(</span><span class="n">minute</span><span class="o">=</span><span class="s">"*/2"</span><span class="p">),</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>启动django</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>python3 manage.py runserver &lt;your ip&gt;:&lt;your port&gt;
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>新开一个终端，启动worker</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">cd</span> &lt;your project path&gt; celery <span class="nt">-A</span> mysite worker <span class="nt">-l</span> info
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>新开一个终端，启动celery beat</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">cd</span> &lt;your project path&gt; celery <span class="nt">-A</span> mysite beat <span class="nt">-l</span> INFO
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>会看到周期性的任务发送</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="rouge-code"><pre>celery beat v5.0.5 <span class="o">(</span>singularity<span class="o">)</span> is starting.
+__    -    ... __   -        _
+LocalTime -&gt; 2021-12-03 17:18:38
+Configuration -&gt;
+    <span class="nb">.</span> broker -&gt; amqp://ci:<span class="k">**</span>@172.16.20.200:5672/ci_backend
+    <span class="nb">.</span> loader -&gt; celery.loaders.app.AppLoader
+    <span class="nb">.</span> scheduler -&gt; celery.beat.PersistentScheduler
+    <span class="nb">.</span> db -&gt; celerybeat-schedule
+    <span class="nb">.</span> logfile -&gt; <span class="o">[</span>stderr]@%INFO
+    <span class="nb">.</span> maxinterval -&gt; 5.00 minutes <span class="o">(</span>300s<span class="o">)</span>
+<span class="o">[</span>2021-12-03 17:18:38,148: INFO/MainProcess] beat: Starting...
+<span class="o">[</span>2021-12-03 17:20:00,089: INFO/MainProcess] Scheduler: Sending due task tests <span class="o">(</span>build_info.tasks.test_timed_tasks<span class="o">)</span>
+<span class="o">[</span>2021-12-03 17:22:00,076: INFO/MainProcess] Scheduler: Sending due task tests <span class="o">(</span>build_info.tasks.test_timed_tasks<span class="o">)</span>
+<span class="o">[</span>2021-12-03 17:24:00,092: INFO/MainProcess] Scheduler: Sending due task tests <span class="o">(</span>build_info.tasks.test_timed_tasks<span class="o">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>同时在worker终端看到任务执行</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="o">[</span>2021-12-03 17:20:09,886: INFO/MainProcess] Received task: build_info.tasks.test_timed_tasks[ebabbd97-4636-45b9-afce-bf6cd6a23e35]
+<span class="o">[</span>2021-12-03 17:21:49,964: WARNING/ForkPoolWorker-8] <span class="nt">----Tasks</span>
+<span class="o">[</span>2021-12-03 17:21:49,973: INFO/ForkPoolWorker-8] Task build_info.tasks.test_timed_tasks[ebabbd97-4636-45b9-afce-bf6cd6a23e35] succeeded <span class="k">in </span>100.08622614399064s: None
+<span class="o">[</span>2021-12-03 17:22:00,094: INFO/MainProcess] Received task: build_info.tasks.test_timed_tasks[c31f1cc3-640d-413c-b535-ee38600b64d0]
+<span class="o">[</span>2021-12-03 17:23:40,128: WARNING/ForkPoolWorker-8] <span class="nt">----Tasks</span>
+<span class="o">[</span>2021-12-03 17:23:40,155: INFO/ForkPoolWorker-8] Task build_info.tasks.test_timed_tasks[c31f1cc3-640d-413c-b535-ee38600b64d0] succeeded <span class="k">in </span>100.05949019198306s: None
+...
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>此时定时任务配置成功</p>
+
+<h3 id="部署集成">部署集成</h3>
+
+<p>Django正式部署时采用终端的方式启动celery肯定是不现实的，需要用到celery的守护进程multi</p>
+
+<blockquote>
+  <p>通过 –beat 启动定时任务</p>
+
+  <p>保证pidfile路径 和 logfile 路径存在且具有写权限</p>
+
+  <table>
+    <tbody>
+      <tr>
+        <td>启动后通过 ps aux</td>
+        <td>grep celery 可以查看到与 concurrency 数目相等的进程</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="nb">cd</span> &lt;your project path&gt;
+celery multi start w1 <span class="nt">-A</span> mysite <span class="nt">-l</span> info <span class="nt">--beat</span> <span class="nt">--pidfile</span><span class="o">=</span>/var/run/celery/%n.pid <span class="nt">--logfile</span><span class="o">=</span>/var/log/celery/%n%I.log <span class="nt">--concurrency</span><span class="o">=</span>15
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>杀掉 celery 守护进程的方法</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>ps <span class="nt">-ef</span> | <span class="nb">grep </span>celery | <span class="nb">awk</span> <span class="s1">'{print $2}'</span> | xargs <span class="nb">kill</span> <span class="nt">-9</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="参考资料">参考资料</h3>
+
+<ul>
+  <li>Django使用Celery demo的官方 <a href="https://github.com/celery/celery/tree/master/examples/django/">github地址</a></li>
+  <li><a href="https://www.celerycn.io/">Celery中文手册</a></li>
+  <li><a href="https://docs.celeryproject.org/en/stable/">Celery官方文档</a></li>
+</ul>
+
+:ET

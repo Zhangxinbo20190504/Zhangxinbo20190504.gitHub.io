@@ -111,6 +111,8 @@
                         
                         
                         
+                        
+                        
                         <li class="search-icon">
                             <a href="javascript:void(0)">
                                 <i class="fa fa-search"></i>
@@ -229,6 +231,34 @@
     <div class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1 col-sm-12
       col-xs-12 postlist-container">
       
+<div class="post-preview">
+    <a href="/2021/12/04/Django%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1/">
+        <h2 class="post-title">
+            Django 异步任务
+        </h2>
+        
+        <h3 class="post-subtitle">
+            以rabbitMQ作为中间人在Django中集成celery
+        </h3>
+        
+        <div class="post-content-preview">
+            
+                背景
+
+在Django开发中经常有许多耗时的任务，如调用第三方接口，邮件/短信发送等等，为了缩短请求的响应时间，最好把这些任务做成异步任务，还有一些任务需要周期执行，如数据缓存的清理，备份等工作，为了完成上述需求，需要借助一个工具。
+
+celery是一个高效的异步消息处理框架，仅需要简单的配置就可以轻松帮我们实现异步任务和定时任务
+
+celery通过中间人(Broker，通常选择rabbit...
+            
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Xinbo on December 4, 2021
+    </p>
+</div>
+<hr>
+
 <div class="post-preview">
     <a href="/2021/12/03/%E5%AE%9E%E7%8E%B0Django-API/">
         <h2 class="post-title">
@@ -636,39 +666,17 @@ tar zxvf cppcheck-2.6.tar.gz
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/2021/11/23/Hello/">
-        <h2 class="post-title">
-            New Start
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Hello World, Hello Blog
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                新的开始
-
-终于有个地方可以写博客了
-
-做持续集成工程师也4年了，对CI/CD Devops有了一点自己的理解
-
-在这里做个记录，如果可以帮助到不小心点开的你，就很开心了
-
-让我们一起，持续改进！
-
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Xinbo on November 23, 2021
-    </p>
-</div>
-<hr>
-
 
 <!-- Pager -->
+
+<ul class="pager">
+    
+    
+    <li class="next">
+        <a href="/page2">Older Posts &rarr;</a>
+    </li>
+    
+</ul>
 
 
     </div>
@@ -689,12 +697,12 @@ tar zxvf cppcheck-2.6.tar.gz
         
         
         
-                <a data-sort="0009" 
+                <a data-sort="0010" 
                     href="/archive/?tag=%E7%94%9F%E6%B4%BB"
                     title="生活"
                     rel="1">生活</a>
         
-                <a data-sort="0006" 
+                <a data-sort="0007" 
                     href="/archive/?tag=%E5%B7%A5%E5%85%B7%E9%83%A8%E7%BD%B2"
                     title="工具部署"
                     rel="4">工具部署</a>
@@ -702,22 +710,27 @@ tar zxvf cppcheck-2.6.tar.gz
                 <a data-sort="0007" 
                     href="/archive/?tag=Django"
                     title="Django"
-                    rel="3">Django</a>
+                    rel="4">Django</a>
         
-                <a data-sort="0009" 
+                <a data-sort="0010" 
                     href="/archive/?tag=%E6%95%8F%E6%8D%B7"
                     title="敏捷"
                     rel="1">敏捷</a>
         
-                <a data-sort="0009" 
+                <a data-sort="0010" 
                     href="/archive/?tag=%E7%B2%BE%E7%9B%8A"
                     title="精益"
                     rel="1">精益</a>
         
-                <a data-sort="0009" 
+                <a data-sort="0010" 
                     href="/archive/?tag=Vue"
                     title="Vue"
                     rel="1">Vue</a>
+        
+                <a data-sort="0010" 
+                    href="/archive/?tag=celery"
+                    title="celery"
+                    rel="1">celery</a>
     </div>
 </section>
 

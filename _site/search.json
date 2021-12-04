@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "Django 异步任务",
+      "subtitle" : "以rabbitMQ作为中间人在Django中集成celery",
+      "tags"     : "Django, celery",
+      "url"      : "/2021/12/04/Django%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1/",
+      "date"     : "2021-12-04 23:00:00 +0800"
+    } ,
+  
+    {
       "title"    : "Django 实现Restful接口",
       "subtitle" : "django restframework + drf_yasg",
       "tags"     : "Django",
