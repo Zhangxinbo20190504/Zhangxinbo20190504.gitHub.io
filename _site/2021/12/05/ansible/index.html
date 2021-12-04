@@ -12,35 +12,33 @@
 
     <!-- Open Graph -->
     <meta property="og:title"
-        content="CppCheck部署 - Xinbo的博客 | Xinbo Blog">
+        content="Ansible实战 - Xinbo的博客 | Xinbo Blog">
     
     <meta property="og:type" content="article">
-    <meta property="og:description" content="cppcheck部署
-
-直接安装
-
-1
-apt install cppcheck
+    <meta property="og:description" content="问题导入
 
 
-源码安装
-
-下载路径 https://sourceforge.net/projects/cppcheck/files/cppcheck/
-
-放在 /usr/local/cppcheck 下（路径可自定义）
-
-解压
-
-1
-tar zxvf cppcheck-2.6.tar.gz
+  如何将一台项目分配的云虚机快速部署为可用构建环境
+  如何将一组项目分配的云虚机快速部署为可用构建环境
+  如何监控一组机器的状态
 
 
-安装
+为什么选择ansible
 
 
-  make时一...">
+  
+    语法简单
+
+    配置管理脚本使用YAML语法，人类可读的字典结构
+轻量级的抽象，并不需要学习额外的抽象语法
+  
+  
+    最少的依赖
+
+    只需要在控制服务器上配置
+受控机仅需安装s...">
     
-    <meta property="article:published_time" content=" 2021-11-23T21:00:00Z">
+    <meta property="article:published_time" content=" 2021-12-05T01:00:00Z">
     
     
     <meta property="article:author" content="Xinbo">
@@ -48,14 +46,14 @@ tar zxvf cppcheck-2.6.tar.gz
     
     <meta property="article:tag" content="工具部署">
     
-    <meta property="article:tag" content="CppCheck">
+    <meta property="article:tag" content="Ansible">
     
     
     <meta property="og:image" content="http://localhost:4000/img/avata-me.jpg">
-    <meta property="og:url" content="http://localhost:4000/2021/11/23/cppcheck%E9%83%A8%E7%BD%B2/">
+    <meta property="og:url" content="http://localhost:4000/2021/12/05/ansible/">
     <meta property="og:site_name" content="Xinbo的博客 | Xinbo Blog">
 
-    <title>CppCheck部署 - Xinbo的博客 | Xinbo Blog</title>
+    <title>Ansible实战 - Xinbo的博客 | Xinbo Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -64,7 +62,7 @@ tar zxvf cppcheck-2.6.tar.gz
     <link rel="shortcut icon" href="/img/blog.svg">
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="http://localhost:4000/2021/11/23/cppcheck%E9%83%A8%E7%BD%B2/">
+    <link rel="canonical" href="http://localhost:4000/2021/12/05/ansible/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href=" /css/bootstrap.min.css">
@@ -260,13 +258,13 @@ tar zxvf cppcheck-2.6.tar.gz
                         
                         <a class="tag" href="/archive/?tag=%E5%B7%A5%E5%85%B7%E9%83%A8%E7%BD%B2" title="工具部署">工具部署</a>
                         
-                        <a class="tag" href="/archive/?tag=CppCheck" title="CppCheck">CppCheck</a>
+                        <a class="tag" href="/archive/?tag=Ansible" title="Ansible">Ansible</a>
                         
                     </div>
-                    <h1>CppCheck部署</h1>
+                    <h1>Ansible实战</h1>
                     
-                    <h2 class="subheading">基于ubuntu2004</h2>
-                    <span class="meta">Posted by Xinbo on November 23, 2021</span>
+                    <h2 class="subheading">探索CI自动化部署捷径</h2>
+                    <span class="meta">Posted by Xinbo on December 5, 2021</span>
                 </div>
             </div>
         </div>
@@ -292,110 +290,483 @@ tar zxvf cppcheck-2.6.tar.gz
                 <!-- Multi-Lingual -->
                 
 
-				<h1 id="cppcheck部署">cppcheck部署</h1>
+				<h3 id="问题导入">问题导入</h3>
 
-<h2 id="直接安装">直接安装</h2>
+<ul>
+  <li>如何将一台项目分配的云虚机快速部署为可用构建环境</li>
+  <li>如何将一组项目分配的云虚机快速部署为可用构建环境</li>
+  <li>如何监控一组机器的状态</li>
+</ul>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>apt install cppcheck
-</pre></td></tr></tbody></table></code></pre></div></div>
+<h3 id="为什么选择ansible">为什么选择ansible</h3>
 
-<h2 id="源码安装">源码安装</h2>
+<ul>
+  <li>
+    <p>语法简单</p>
 
-<p>下载路径 https://sourceforge.net/projects/cppcheck/files/cppcheck/</p>
+    <p>配置管理脚本使用YAML语法，人类可读的字典结构
+轻量级的抽象，并不需要学习额外的抽象语法</p>
+  </li>
+  <li>
+    <p>最少的依赖</p>
 
-<p>放在 /usr/local/cppcheck 下（路径可自定义）</p>
+    <p>只需要在控制服务器上配置
+受控机仅需安装ssh和python&gt;2.5，linux主机大多已预装</p>
+  </li>
+  <li>
+    <p>功能强大</p>
 
-<p>解压</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>tar zxvf cppcheck-2.6.tar.gz
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<p>安装</p>
+    <p>内置大量模块，足以完成日常需求
+幂等性，重复执行安全</p>
+  </li>
+</ul>
 
 <blockquote>
-  <p>make时一定要指定CFGDIR，否则报错</p>
+  <p>环境 ubuntu16.04</p>
+</blockquote>
+
+<h3 id="ansible配置">Ansible配置</h3>
+
+<blockquote>
+  <p>也可以使用源码安装，可以使用最新功能 <a href="https://github.com/ansible/ansible">ansible官方gitbub</a></p>
+</blockquote>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>apt <span class="nb">install </span>ansible
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>ansible配置文件如下</p>
+
+<ul>
+  <li>ansible.cfg：ansible配置文件</li>
+  <li>host：主机信息配置文件，通常叫做inventory文件</li>
+  <li>*.yml：playbook文件，执行命令配置文件</li>
+</ul>
+
+<p>Ansible 配置文件读取顺序如下</p>
+
+<p>ANSIBLE_CONFIG环境变量指定的文件</p>
+
+<p>./ansible.cfg(当前目录下的配置文件)
+~/.ansible.cfg(主目录下的配置文件)</p>
+
+<p>/etc/ansible/ansible.cfg(安装默认配置文件)</p>
+
+<p>主要配置项如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre>inventory = host       # inventory文件路径 
+remote_tmp = /tmp/.ansible/tmp    # 默认 $HOME/.ansible/tmp, 修改，防止没有权限创建$HOME	   
+host_key_checking = False      # 使用用户名密码登录时关闭主机秘钥验证
+pipelining = True    # 开启流水线，不需要复制脚本直接利用ssh管道执行python脚本，优化
+ssh_args = -o ControlMaster=auto -o ControlPersist=60s # 开启ssh多路复用（长连接保持），优化
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>host文件样例</p>
+
+<blockquote>
+  <p>ansible_become_pass配置root密码，旧版本中可能为ansible_su_pass</p>
 </blockquote>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
-</pre></td><td class="rouge-code"><pre>cd cppcheck-2.6
-make CFGDIR=/usr/local/cppcheck/cppcheck-2.6/cfg/
-make install
+</pre></td><td class="rouge-code"><pre>[init_disk]             # 组名
+10.7.225.33 ansible_ssh_user=szdev ansible_ssh_pass=szdev ansible_become_pass=szdev    # 主机名及参数
+10.7.225.34 ansible_ssh_user=szdev ansible_ssh_pass=szdev ansible_become_pass=szdev
 </pre></td></tr></tbody></table></code></pre></div></div>
 
-<p>检查版本</p>
+<p>为了一组相同主机用户名和密码，推荐下面的写法</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>cppcheck --version
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre>[virtual:vars]        # 为组设置变量
+ansible_ssh_user=szdev
+ansible_ssh_pass=XXXXXX
+ansible_become_pass=XXXXXX
+
+[virtual:children]    # 继承关系
+init_4g_v
+check_disk_use
+
+[init_4g_v]
+10.7.225.218
+
 </pre></td></tr></tbody></table></code></pre></div></div>
 
-<h2 id="使用">使用</h2>
+<p>配置好cfg和host文件之后，就可以开发使用了</p>
 
 <ul>
   <li>
-    <p>基础用法</p>
+    <p>验证是否链接</p>
 
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>cppcheck &lt;path&gt;
+    <p>ansible <group_name> -m <model_name></model_name></group_name></p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>ansible init_4g_v <span class="nt">-m</span> ping
+10.7.225.216 | SUCCESS <span class="o">=&gt;</span> <span class="o">{</span>
+    <span class="s2">"changed"</span>: <span class="nb">false</span>,
+    <span class="s2">"ping"</span>: <span class="s2">"pong"</span>
+<span class="o">}</span> 
 </pre></td></tr></tbody></table></code></pre></div>    </div>
   </li>
   <li>
-    <p>多任务并行</p>
+    <p>执行shell命令</p>
 
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>cppcheck <span class="nt">-j</span> 4 &lt;path&gt;
-</pre></td></tr></tbody></table></code></pre></div>    </div>
-  </li>
-  <li>
-    <p>输出xml格式</p>
-
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>cppcheck <span class="nt">--xml</span> <span class="nt">--xml-version</span><span class="o">=</span>2 &lt;path&gt; 2&gt; cppcheck-report.xml
-</pre></td></tr></tbody></table></code></pre></div>    </div>
-  </li>
-  <li>
-    <p>开启检查项</p>
+    <p>ansible <group_name> -m <model_name>  -a <args></args></model_name></group_name></p>
 
     <blockquote>
-      <p>可以使用多个enable，也可以使用enable=all</p>
+      <p>command为默认模块，可以省略</p>
     </blockquote>
 
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>cppcheck --enable=&lt;options&gt; &lt;path&gt;
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>ansible init_4g_v <span class="o">(</span><span class="nt">-m</span> <span class="nb">command</span><span class="o">)</span> <span class="nt">-a</span> <span class="s1">'echo helloworld'</span>
+  
+10.7.225.216 | SUCCESS | <span class="nv">rc</span><span class="o">=</span>0 <span class="o">&gt;&gt;</span>
+helloworld
 </pre></td></tr></tbody></table></code></pre></div>    </div>
   </li>
 </ul>
 
-<h2 id="jenkins集成">jenkins集成</h2>
+<h3 id="playbook">playbook</h3>
 
-<p>安装jenkins插件 cppcheck</p>
+<p>playbook把一组ansible命令写成了一个文件执行</p>
 
-<p>安装完成后在 任务的 构建后操作 可选择 Publish Cppcheck result</p>
+<p>playbook基础样例如下</p>
 
-<p><img src="C:\Users\anker\AppData\Roaming\Typora\typora-user-images\image-20211008121843715.png" alt="image-20211008121843715" /></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre>- name: Init Disks   # 一组任务的名字
+  hosts: init_disk   # 必填项：主机组名
+  become: True       # 是否用root执行，对Ubuntu非常有用
+  vars:              # 一组任务用到的变量，可直接用调用
+  tasks:             # 必填项：task任务列表
+  - name: Change szdev Password
+    user: name=szdev password=XXXXXX    
 
+  - name: Change root Password
+    user: name=root password=XXXXXX
+    ignore_errors: True
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>查看Ansible所有模块：ansible-doc -l</p>
+
+<p>查看某具体模块说明：ansible-doc <model></model></p>
+
+<p>运行playbook： ansible-playbook XXX.yml</p>
+
+<p>从某个任务开始执行playbook：</p>
+
+<p>ansible-playbook –start-at-task <task name=""> XXX.yml</task></p>
+
+<p>举例介绍几个playbook常用模块</p>
+
+<h4 id="apt模块">apt模块</h4>
+
+<blockquote>
+  <p>用于安装软件</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre>- name: Install software
+  apt: pkg=ccache update_cache=yes    cache_valid_time=3600
+- name: Install software
+   apt: pkg= update_cache=yes cache_valid_time=3600
+   with_items:
+        - curl
+        - ccache
+        - distcc
+        - docker.io
+        - expect
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="mount模块">mount模块</h4>
+
+<blockquote>
+  <p>用于挂载</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre>- name: Mount result server
+  mount:
+       name: /home/ci/result
+       src: //10.11.134.78/ItranBuildingResult
+       fstype: cifs
+       opts: username=CI,password=Ci123456
+       state: mounted
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="git模块">git模块</h4>
+
+<blockquote>
+  <p>下载代码</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>- name: Clone base CI config sript
+      git: repo=&lt;your git server&gt;/it-ran/ci/ dest=/home/node_0/workspace/ci/ 
+      with_items:
+        - config
+        - script
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="应用拷贝ssh配置并重启ssh服务">应用：拷贝ssh配置并重启ssh服务</h4>
+
+<blockquote>
+  <p>copy模块：将文件从本地复制到远程主机</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre>- name: Sync sshd config
+   copy:
+      src: /etc/ssh/sshd_config
+      dest: /etc/ssh/
+
+- name: Restart ssh service
+  service: name=sshd   state=restarted
+  ignore_errors: True
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>还有另一种写法</p>
+
+<blockquote>
+  <p>关于notify和handler：</p>
+
+  <ul>
+    <li>handler是Ansible提供的条件控制机制，只有被task通知才执行</li>
+    <li>handler只会在所有task执行完之后才执行，且不管通知多少次，只执行一次</li>
+    <li>handler按照定义的顺序执行而不是通知的顺序</li>
+    <li>handler最常用的功能就是重启服务</li>
+  </ul>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre>tasks:
+    - name: Sync sshd config
+      copy:
+        src: /etc/ssh/sshd_config
+        dest: /etc/ssh/
+      notify: restart sshd service
+ handlers:
+    - name: restart sshd service
+      service: name=sshd state=restarted
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="应用register变量">应用：register变量</h4>
+
+<blockquote>
+  <p>register：捕获命令输出到变量
+debug：输出</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre>- name: Init Build ENV PLAT BUILD
+  hosts: init_4g_v
+  become: True
+  vars:
+  tasks:
+    - name: check who am i
+      command: whoami
+      register: result
+    - debug: var=result
+    - debug: msg="Current user is "
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>result 输出如下</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+</pre></td><td class="rouge-code"><pre>ok: [10.7.216.20] =&gt; {
+    "result": {
+        "changed": true,                       # changed：主机状态是否发生改变
+        "cmd": [
+            "whoami"                           # cmd：模块参数
+        ],
+        "delta": "0:00:00.003337",
+        "end": "2019-03-28 20:21:34.893271",
+        "failed": false,
+        "rc": 0,                               # rc：执行返回值，0成功 非0失败
+        "start": "2019-03-28 20:21:34.889934",
+        "stderr": "",                          # stderr：错误输出
+        "stderr_lines": [],
+        "stdout": "root",                      # stdout：标准输出
+        "stdout_lines": [                      # stdout_lines：换行符分割后的标准输出
+            "root"
+        ]
+    }
+}
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="应用使用when区别操作">应用：使用when区别操作</h4>
+
+<blockquote>
+  <p>类似代码设计里的 if 关键字</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre>- name: test
+  hosts: init_4g_v
+  become: True
+  vars:
+  tasks:
+    - name: check folder
+      command: ls /home/sdb1/ItranBuildingResult
+      register: result
+      ignore_errors: True
+    
+    - name: install software
+      apt: pkg=samba update_cache=yes    
+      when: result is succeeded
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="收益ansible能带来什么">收益：ansible能带来什么</h3>
+
+<ul>
+  <li>
+    <p>批量执行、部署、标准化建设</p>
+
+    <p>部署新机器作为构建机</p>
+
+    <p>现有构建环境的升级（如工具链升级）</p>
+  </li>
+  <li>
+    <p>机器状态监控</p>
+
+    <p>批量机器的监控，保证机器状态（如 磁盘空间等）处于正常状态</p>
+  </li>
+  <li>
+    <p>源码学习</p>
+
+    <p>Ansible基于python开发，且运行基于yaml配置文件，与当前CI构建大致相同，可以通过学习源码提升自己的能力</p>
+  </li>
+</ul>
+
+<h3 id="参考资料">参考资料</h3>
+
+<ul>
+  <li><a href="https://docs.ansible.com/">官方文档</a></li>
+  <li><a href="http://www.ansible.com.cn/">中文版文档</a></li>
+  <li><a href="https://www.cnblogs.com/saneri/p/8487973.html">python3 + Ansible 通用接口实现</a></li>
+  <li>奔跑吧Ansible》电子工业出版社</li>
+</ul>
 
 
                 <hr style="visibility: hidden;">
                 <!-- <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2021/11/23/Hello/" data-toggle="tooltip" data-placement="top" title="New Start">
+                        <a href="/2021/12/04/Django%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1/" data-toggle="tooltip" data-placement="top" title="Django 异步任务">
                         Previous<br>
-                        <span>New Start</span>
+                        <span>Django 异步任务</span>
                         </a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2021/11/23/jenkins%E6%90%AD%E5%BB%BA/" data-toggle="tooltip" data-placement="top" title="Jenkins部署">
-                        Next<br>
-                        <span>Jenkins部署</span>
-                        </a>
-                    </li>
                     
                 </ul> -->
                 <hr style="visibility: hidden;">
@@ -537,8 +908,8 @@ make install
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "hux";
-    var disqus_identifier = "/2021/11/23/cppcheck部署";
-    var disqus_url = "http://localhost:4000/2021/11/23/cppcheck%E9%83%A8%E7%BD%B2/";
+    var disqus_identifier = "/2021/12/05/ansible";
+    var disqus_url = "http://localhost:4000/2021/12/05/ansible/";
 
     (function() {
         var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

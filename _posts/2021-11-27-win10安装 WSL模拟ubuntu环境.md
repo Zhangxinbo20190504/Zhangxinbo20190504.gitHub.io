@@ -7,6 +7,7 @@ author:     "Xinbo"
 header-img: "img/post-bg-rwd.jpg"
 tags:
     - 工具部署
+    - WSL
 ---
 
 ### 准备
