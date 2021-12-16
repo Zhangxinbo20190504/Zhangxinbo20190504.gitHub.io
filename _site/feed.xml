@@ -5,9 +5,176 @@
     <description>xinbo的个人记录</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 04 Dec 2021 15:53:17 +0800</pubDate>
-    <lastBuildDate>Sat, 04 Dec 2021 15:53:17 +0800</lastBuildDate>
+    <pubDate>Thu, 16 Dec 2021 17:35:45 +0800</pubDate>
+    <lastBuildDate>Thu, 16 Dec 2021 17:35:45 +0800</lastBuildDate>
     <generator>Jekyll v4.2.1</generator>
+    
+      <item>
+        <title>服务器监控大屏搭建</title>
+        <description>&lt;p&gt;服务器的监控在devops价值流中显得尤为重要，准确的监控对判断业务风险有极大的价值，利用 promethus 和 grafana 可以让我们短时间迅速掌握服务器监控，拥有炫酷的监控大屏&lt;/p&gt;
+
+&lt;p&gt;docker摆脱了监控搭建步骤的繁琐，能够统一环境，学习成本与运维成本低，是很好的搭建选择&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;基于ubuntu2004 ，且已安装docker&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;运行node-exporter&quot;&gt;运行node-exporter&lt;/h3&gt;
+
+&lt;p&gt;在需要监控的服务器上下载 node-exporter&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker pull prom/node-exporter
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;运行 node-exporter&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker run &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; 9100:9100 &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;/proc:/host/proc:ro&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;/sys:/host/sys:ro&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;/:/rootfs:ro&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--net&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;host&quot;&lt;/span&gt; prom/node-exporter
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;查看 9100 端口是否监听&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;netstat &lt;span class=&quot;nt&quot;&gt;-anpt&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;grep &lt;/span&gt;9100
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt;
+tcp6       0      0 :::9100                 :::&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;                    LISTEN      2659039/node_export
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;在 浏览器运行 http://&lt;your_ip&gt;:9100/metrics，可看到类似如下输出&lt;/your_ip&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://s2.loli.net/2021/12/16/GRbSTDoasUYw4qc.png&quot; alt=&quot;image-20211216162732311&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;部署promethus&quot;&gt;部署promethus&lt;/h3&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker pull prom/prometheus
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;新建 prometheus 目录，并编辑配置文件 prometheus.yml&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; /opt/prometheus
+&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /opt/prometheus/
+vim prometheus.yml
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;na&quot;&gt;global&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;scrape_interval&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;     &lt;span class=&quot;s&quot;&gt;60s&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;evaluation_interval&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;60s&lt;/span&gt;
+
+&lt;span class=&quot;na&quot;&gt;scrape_configs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;job_name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;prometheus&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;static_configs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;targets&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;localhost:9090'&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;instance&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;prometheus&lt;/span&gt;
+
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;job_name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;linux&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;static_configs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;targets&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;lt;your&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;server&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;ip&amp;gt;:9100'&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;# 需要监控的ip&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;labels&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;instance&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ubuntu&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;启动 promethus&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker run &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; 9090:9090 &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; /opt/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;访问 http://&lt;your_ip&gt;:9090/targets 可以看到如下效果&lt;/your_ip&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://s2.loli.net/2021/12/16/6aRuEIcVg7bxdCZ.png&quot; alt=&quot;image-20211216165430834&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;promethus 运行成功&lt;/p&gt;
+
+&lt;h3 id=&quot;部署grafana&quot;&gt;部署grafana&lt;/h3&gt;
+
+&lt;p&gt;为了更好的展示promethus的数据，我们选用 grafaana 作为数据展示的看板&lt;/p&gt;
+
+&lt;p&gt;下载grafana&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker pull grafana/grafana
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;新建空文件夹存放grafana的数据&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;mkdir /opt/grafana-storage
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;设置权限&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;grafana会使用 grafana 用户去写数据，所以直接设置成777&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nx&quot;&gt;mkdir&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;opt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;grafana&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;storage&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;启动&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;docker run &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; 3000:3000 &lt;span class=&quot;nt&quot;&gt;--name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;grafana &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; /opt/grafana-storage:/var/lib/grafana grafana/grafana
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;访问 http://&lt;your_ip&gt;:3000  可以看到grafana的登录界面&lt;/your_ip&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;默认用户名密码 admin / admin，登录会要求重设密码，可以跳过&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://s2.loli.net/2021/12/16/k63JRCfX8r5yiQx.png&quot; alt=&quot;image-20211216170625860&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;进入 grafana 后 设置 promethus 数据源&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://s2.loli.net/2021/12/16/UQLivtaAVp56ePX.png&quot; alt=&quot;image-20211216171141588&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;接下来 import 一个模板，通过id 和 json导入均可，数据源选择 刚刚设置的promethus&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;https://grafana.com/dashboards/  可查看各种模板及id&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://s2.loli.net/2021/12/16/bJELlDqKkzZVWdo.png&quot; alt=&quot;image-20211216171501379&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;然后就可以根据需要调整看板显示数据了&lt;/p&gt;
+</description>
+        <pubDate>Fri, 17 Dec 2021 01:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2021/12/17/docker-promethus-grafana/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/12/17/docker-promethus-grafana/</guid>
+        
+        <category>工具部署</category>
+        
+        <category>Prometheus</category>
+        
+        <category>Grafana</category>
+        
+        
+      </item>
     
       <item>
         <title>Ansible实战</title>
@@ -2878,135 +3045,6 @@ source /etc/profile
         <category>工具部署</category>
         
         <category>SonarQube</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Jenkins部署</title>
-        <description>&lt;h1 id=&quot;ubuntu2004-jenkins搭建&quot;&gt;ubuntu2004 jenkins搭建&lt;/h1&gt;
-
-&lt;h2 id=&quot;安装java&quot;&gt;安装java&lt;/h2&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;apt &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;openjdk-11-jdk
-java &lt;span class=&quot;nt&quot;&gt;--version&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;安装jenkins&quot;&gt;安装jenkins&lt;/h2&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-3
-4
-5
-6
-7
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;c&quot;&gt;# 导入 Jenkins 软件源的 GPG keys，添加软件源到系统&lt;/span&gt;
-wget &lt;span class=&quot;nt&quot;&gt;-q&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; - https://pkg.jenkins.io/debian/jenkins.io.key | &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-key add -
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;sh &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'echo deb http://pkg.jenkins.io/debian-stable binary/ &amp;gt; /etc/apt/sources.list.d/jenkins.list'&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# 执行apt&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt update
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;jenkins
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;安装完成后，jenkins自动启动&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;查询jenkins状态&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;systemctl status jenkins
-&lt;span class=&quot;c&quot;&gt;# 输出&lt;/span&gt;
-● jenkins.service - LSB: Start Jenkins at boot &lt;span class=&quot;nb&quot;&gt;time
-     &lt;/span&gt;Loaded: loaded &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;/etc/init.d/jenkins&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; generated&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-     Active: active &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;exited&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; since Sun 2021-09-26 09:03:38 CST&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; 4 days ago
-       Docs: man:systemd-sysv-generator&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;8&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-      Tasks: 0 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;limit: 38022&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-     Memory: 0B
-     CGroup: /system.slice/jenkins.service
-
-Sep 26 09:03:29 ankerubuntu2004 systemd[1]: Starting LSB: Start Jenkins at boot time...
-Sep 26 09:03:36 ankerubuntu2004 jenkins[1700]: Correct java version found
-Sep 26 09:03:36 ankerubuntu2004 jenkins[1700]:  &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; Starting Jenkins Automation Server jenkins
-Sep 26 09:03:37 ankerubuntu2004 su[2442]: &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;to jenkins&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; root on none
-Sep 26 09:03:37 ankerubuntu2004 su[2442]: pam_unix&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;su-l:session&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;: session opened &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;user jenkins by &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;uid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-Sep 26 09:03:37 ankerubuntu2004 su[2442]: pam_unix&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;su-l:session&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;: session closed &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;user jenkins
-Sep 26 09:03:38 ankerubuntu2004 jenkins[1700]:    ...done.
-Sep 26 09:03:38 ankerubuntu2004 systemd[1]: Started LSB: Start Jenkins at boot time.
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;访问 http://your_ip_or_domain:8080 查看jenkins&lt;/p&gt;
-
-&lt;p&gt;首次登录会要求&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;从部署服务器粘贴管理员密码&lt;/li&gt;
-  &lt;li&gt;安装推荐的默认插件&lt;/li&gt;
-  &lt;li&gt;设置admin账户的密码&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;docker搭建方法&quot;&gt;docker搭建方法&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;参考：https://hub.docker.com/_/jenkins&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;常见问题处理&quot;&gt;常见问题处理&lt;/h2&gt;
-
-&lt;h3 id=&quot;权限配置错误导致进不去&quot;&gt;权限配置错误导致进不去&lt;/h3&gt;
-
-&lt;p&gt;找到jenkins 配置文件config.xml，通常在 /var/lib/jenkins/config.xml&lt;/p&gt;
-
-&lt;p&gt;修改如下配置&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;任何用户可以做任何事(没有任何限制)&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;authorizationStrategy&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;hudson.security.AuthorizationStrategy$Unsecured&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;或者&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;登录用户可以做任何事&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;authorizationStrategy&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;hudson.security.FullControlOnceLoggedInAuthorizationStrategy&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;重启jenkins，使用初始账户登录，重新配置权限即可&lt;/p&gt;
-</description>
-        <pubDate>Tue, 23 Nov 2021 22:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2021/11/23/jenkins%E6%90%AD%E5%BB%BA/</link>
-        <guid isPermaLink="true">http://localhost:4000/2021/11/23/jenkins%E6%90%AD%E5%BB%BA/</guid>
-        
-        <category>工具部署</category>
-        
-        <category>Jenkins</category>
         
         
       </item>

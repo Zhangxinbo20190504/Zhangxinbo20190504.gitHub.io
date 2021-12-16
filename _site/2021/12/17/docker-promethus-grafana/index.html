@@ -12,17 +12,39 @@
 
     <!-- Open Graph -->
     <meta property="og:title"
-        content="Xinbo的博客 | Xinbo Blog">
+        content="服务器监控大屏搭建 - Xinbo的博客 | Xinbo Blog">
     
-    <meta property="og:type" content="website">
-    <meta property="og:description"
-        content="像我这样优秀的人，就该灿烂过一生">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="服务器的监控在devops价值流中显得尤为重要，准确的监控对判断业务风险有极大的价值，利用 promethus 和 grafana 可以让我们短时间迅速掌握服务器监控，拥有炫酷的监控大屏
+
+docker摆脱了监控搭建步骤的繁琐，能够统一环境，学习成本与运维成本低，是很好的搭建选择
+
+
+  基于ubuntu2004 ，且已安装docker
+
+
+运行node-exporter
+
+在需要监控的服务...">
+    
+    <meta property="article:published_time" content=" 2021-12-17T01:00:00Z">
+    
+    
+    <meta property="article:author" content="Xinbo">
+    
+    
+    <meta property="article:tag" content="工具部署">
+    
+    <meta property="article:tag" content="Prometheus">
+    
+    <meta property="article:tag" content="Grafana">
+    
     
     <meta property="og:image" content="http://localhost:4000/img/avata-me.jpg">
-    <meta property="og:url" content="http://localhost:4000/">
+    <meta property="og:url" content="http://localhost:4000/2021/12/17/docker-promethus-grafana/">
     <meta property="og:site_name" content="Xinbo的博客 | Xinbo Blog">
 
-    <title>Xinbo的博客 | Xinbo Blog</title>
+    <title>服务器监控大屏搭建 - Xinbo的博客 | Xinbo Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -31,7 +53,7 @@
     <link rel="shortcut icon" href="/img/blog.svg">
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="http://localhost:4000/">
+    <link rel="canonical" href="http://localhost:4000/2021/12/17/docker-promethus-grafana/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href=" /css/bootstrap.min.css">
@@ -197,209 +219,123 @@
   </div>
 </div>
 
-    <!-- Page Header -->
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-rwd.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
 
 
 
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/post-bg-rwd.jpg');
+        background: ;
+    }
 
+    
+</style>
 
+<header class="intro-header" >
 
-
-<header class="intro-header" style="background-image: url('/img/post-bg-os-metro.jpg')">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        
-        <div class="site-heading">
-        
-          <h1>xinbo的devops之旅</h1>
-          <span class="subheading">像我这样优秀的人，就该灿烂过一生</span>
+    <div class="header-mask"></div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/archive/?tag=%E5%B7%A5%E5%85%B7%E9%83%A8%E7%BD%B2" title="工具部署">工具部署</a>
+                        
+                        <a class="tag" href="/archive/?tag=Prometheus" title="Prometheus">Prometheus</a>
+                        
+                        <a class="tag" href="/archive/?tag=Grafana" title="Grafana">Grafana</a>
+                        
+                    </div>
+                    <h1>服务器监控大屏搭建</h1>
+                    
+                    <h2 class="subheading">docker部署 promethus grafana</h2>
+                    <span class="meta">Posted by Xinbo on December 17, 2021</span>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </header>
 
 
-<!-- Main Content -->
-<div class="container">
-  <div class="row">
-    
-
-    <!-- USE SIDEBAR -->
-    <!-- PostList Container -->
-    <div class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1 col-sm-12
-      col-xs-12 postlist-container">
-      
-<div class="post-preview">
-    <a href="/2021/12/17/docker-promethus-grafana/">
-        <h2 class="post-title">
-            服务器监控大屏搭建
-        </h2>
-        
-        <h3 class="post-subtitle">
-            docker部署 promethus grafana
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                服务器的监控在devops价值流中显得尤为重要，准确的监控对判断业务风险有极大的价值，利用 promethus 和 grafana 可以让我们短时间迅速掌握服务器监控，拥有炫酷的监控大屏
-
-docker摆脱了监控搭建步骤的繁琐，能够统一环境，学习成本与运维成本低，是很好的搭建选择
 
 
-  基于ubuntu2004 ，且已安装docker
 
 
-运行node-exporter
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
 
-在需要监控的服务...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Xinbo on December 17, 2021
-    </p>
-</div>
-<hr>
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
 
-<div class="post-preview">
-    <a href="/2021/12/05/ansible/">
-        <h2 class="post-title">
-            Ansible实战
-        </h2>
-        
-        <h3 class="post-subtitle">
-            探索CI自动化部署捷径
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                问题导入
+                <!-- Multi-Lingual -->
+                
 
+				<p>服务器的监控在devops价值流中显得尤为重要，准确的监控对判断业务风险有极大的价值，利用 promethus 和 grafana 可以让我们短时间迅速掌握服务器监控，拥有炫酷的监控大屏</p>
 
-  如何将一台项目分配的云虚机快速部署为可用构建环境
-  如何将一组项目分配的云虚机快速部署为可用构建环境
-  如何监控一组机器的状态
+<p>docker摆脱了监控搭建步骤的繁琐，能够统一环境，学习成本与运维成本低，是很好的搭建选择</p>
 
+<blockquote>
+  <p>基于ubuntu2004 ，且已安装docker</p>
+</blockquote>
 
-为什么选择ansible
+<h3 id="运行node-exporter">运行node-exporter</h3>
 
+<p>在需要监控的服务器上下载 node-exporter</p>
 
-  
-    语法简单
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker pull prom/node-exporter
+</pre></td></tr></tbody></table></code></pre></div></div>
 
-    配置管理脚本使用YAML语法，人类可读的字典结构
-轻量级的抽象，并不需要学习额外的抽象语法
-  
-  
-    最少的依赖
+<p>运行 node-exporter</p>
 
-    只需要在控制服务器上配置
-受控机仅需安装s...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Xinbo on December 5, 2021
-    </p>
-</div>
-<hr>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker run <span class="nt">-d</span> <span class="nt">-p</span> 9100:9100 <span class="nt">-v</span> <span class="s2">"/proc:/host/proc:ro"</span> <span class="nt">-v</span> <span class="s2">"/sys:/host/sys:ro"</span> <span class="nt">-v</span> <span class="s2">"/:/rootfs:ro"</span> <span class="nt">--net</span><span class="o">=</span><span class="s2">"host"</span> prom/node-exporter
+</pre></td></tr></tbody></table></code></pre></div></div>
 
-<div class="post-preview">
-    <a href="/2021/12/04/Django%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1/">
-        <h2 class="post-title">
-            Django 异步任务
-        </h2>
-        
-        <h3 class="post-subtitle">
-            以rabbitMQ作为中间人在Django中集成celery
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                背景
+<p>查看 9100 端口是否监听</p>
 
-在Django开发中经常有许多耗时的任务，如调用第三方接口，邮件/短信发送等等，为了缩短请求的响应时间，最好把这些任务做成异步任务，还有一些任务需要周期执行，如数据缓存的清理，备份等工作，为了完成上述需求，需要借助一个工具。
-
-celery是一个高效的异步消息处理框架，仅需要简单的配置就可以轻松帮我们实现异步任务和定时任务
-
-celery通过中间人(Broker，通常选择rabbit...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Xinbo on December 4, 2021
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2021/12/03/%E5%AE%9E%E7%8E%B0Django-API/">
-        <h2 class="post-title">
-            Django 实现Restful接口
-        </h2>
-        
-        <h3 class="post-subtitle">
-            django restframework + drf_yasg
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                第三方库安装
-
-安装 djangorestframework、drf_yasg
-
-
-  drf_yasg主要为了能自动生成文档
-
-
-1
-2
-pip3 install djangorestframework
-pip3 install drf_yasg
-
-
-在 settings.py 文件中将 rest_framework 加入 INSTALLED_APPS
-
-1
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
-4
-5
-6
-7
-INS...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Xinbo on December 3, 2021
-    </p>
-</div>
-<hr>
+</pre></td><td class="rouge-code"><pre>netstat <span class="nt">-anpt</span> | <span class="nb">grep </span>9100
+<span class="o">&gt;&gt;&gt;</span>
+tcp6       0      0 :::9100                 :::<span class="k">*</span>                    LISTEN      2659039/node_export
+</pre></td></tr></tbody></table></code></pre></div></div>
 
-<div class="post-preview">
-    <a href="/2021/12/02/nginx-uwsgi%E9%83%A8%E7%BD%B2django%E5%BA%94%E7%94%A8/">
-        <h2 class="post-title">
-            Django应用部署
-        </h2>
-        
-        <h3 class="post-subtitle">
-            nginx + uwsgi
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                安装uwsgi
+<p>在 浏览器运行 http://<your_ip>:9100/metrics，可看到类似如下输出</your_ip></p>
 
-1
-sudo apt-get install uwsgi
+<p><img src="https://s2.loli.net/2021/12/16/GRbSTDoasUYw4qc.png" alt="image-20211216162732311" /></p>
 
+<h3 id="部署promethus">部署promethus</h3>
 
-创建 uwsgi.ini
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker pull prom/prometheus
+</pre></td></tr></tbody></table></code></pre></div></div>
 
-1
+<p>新建 prometheus 目录，并编辑配置文件 prometheus.yml</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="nb">mkdir</span> /opt/prometheus
+<span class="nb">cd</span> /opt/prometheus/
+vim prometheus.yml
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -415,267 +351,146 @@ sudo apt-get install uwsgi
 14
 15
 16
-17
-18
-19
-20
-21
-[uwsgi]
-chdir=/opt/website/ci_backend   # 项目路径
-module=mysite.wsgi:application
-# wsgi-file...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Xinbo on December 2, 2021
-    </p>
-</div>
-<hr>
+</pre></td><td class="rouge-code"><pre><span class="na">global</span><span class="pi">:</span>
+  <span class="na">scrape_interval</span><span class="pi">:</span>     <span class="s">60s</span>
+  <span class="na">evaluation_interval</span><span class="pi">:</span> <span class="s">60s</span>
 
-<div class="post-preview">
-    <a href="/2021/11/27/win10%E5%AE%89%E8%A3%85-WSL%E6%A8%A1%E6%8B%9Fubuntu%E7%8E%AF%E5%A2%83/">
-        <h2 class="post-title">
-            Win10 WSL部署
-        </h2>
+<span class="na">scrape_configs</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">job_name</span><span class="pi">:</span> <span class="s">prometheus</span>
+    <span class="na">static_configs</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">targets</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">localhost:9090'</span><span class="pi">]</span>
+        <span class="na">labels</span><span class="pi">:</span>
+          <span class="na">instance</span><span class="pi">:</span> <span class="s">prometheus</span>
+
+  <span class="pi">-</span> <span class="na">job_name</span><span class="pi">:</span> <span class="s">linux</span>
+    <span class="na">static_configs</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">targets</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">&lt;your</span><span class="nv"> </span><span class="s">server</span><span class="nv"> </span><span class="s">ip&gt;:9100'</span><span class="pi">]</span>   <span class="c1"># 需要监控的ip</span>
+        <span class="na">labels</span><span class="pi">:</span>
+          <span class="na">instance</span><span class="pi">:</span> <span class="s">ubuntu</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>启动 promethus</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker run <span class="nt">-d</span> <span class="nt">-p</span> 9090:9090 <span class="nt">-v</span> /opt/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>访问 http://<your_ip>:9090/targets 可以看到如下效果</your_ip></p>
+
+<p><img src="https://s2.loli.net/2021/12/16/6aRuEIcVg7bxdCZ.png" alt="image-20211216165430834" /></p>
+
+<p>promethus 运行成功</p>
+
+<h3 id="部署grafana">部署grafana</h3>
+
+<p>为了更好的展示promethus的数据，我们选用 grafaana 作为数据展示的看板</p>
+
+<p>下载grafana</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker pull grafana/grafana
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>新建空文件夹存放grafana的数据</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>mkdir /opt/grafana-storage
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>设置权限</p>
+
+<blockquote>
+  <p>grafana会使用 grafana 用户去写数据，所以直接设置成777</p>
+</blockquote>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nx">mkdir</span> <span class="o">/</span><span class="nx">opt</span><span class="o">/</span><span class="nx">grafana</span><span class="o">-</span><span class="nx">storage</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>启动</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker run <span class="nt">-d</span> <span class="nt">-p</span> 3000:3000 <span class="nt">--name</span><span class="o">=</span>grafana <span class="nt">-v</span> /opt/grafana-storage:/var/lib/grafana grafana/grafana
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>访问 http://<your_ip>:3000  可以看到grafana的登录界面</your_ip></p>
+
+<blockquote>
+  <p>默认用户名密码 admin / admin，登录会要求重设密码，可以跳过</p>
+</blockquote>
+
+<p><img src="https://s2.loli.net/2021/12/16/k63JRCfX8r5yiQx.png" alt="image-20211216170625860" /></p>
+
+<p>进入 grafana 后 设置 promethus 数据源</p>
+
+<p><img src="https://s2.loli.net/2021/12/16/UQLivtaAVp56ePX.png" alt="image-20211216171141588" /></p>
+
+<p>接下来 import 一个模板，通过id 和 json导入均可，数据源选择 刚刚设置的promethus</p>
+
+<blockquote>
+  <p>https://grafana.com/dashboards/  可查看各种模板及id</p>
+</blockquote>
+
+<p><img src="https://s2.loli.net/2021/12/16/bJELlDqKkzZVWdo.png" alt="image-20211216171501379" /></p>
+
+<p>然后就可以根据需要调整看板显示数据了</p>
+
+
+                <hr style="visibility: hidden;">
+                <!-- <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2021/12/05/ansible/" data-toggle="tooltip" data-placement="top" title="Ansible实战">
+                        Previous<br>
+                        <span>Ansible实战</span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul> -->
+                <hr style="visibility: hidden;">
+
+                
+                <!-- disqus 评论框 start -->
+                <!-- <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div> -->
+                <!-- disqus 评论框 end -->
+                
+
+                
+            </div>  
+
+    <!-- Side Catalog Container -->
         
-        <h3 class="post-subtitle">
-            在win10上拥有一个ubuntu系统
-        </h3>
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
         
-        <div class="post-content-preview">
-            
-                准备
 
-安装 windows powershell 和 Terminal
-
-应用商店 -&gt; 搜索powershell 或者 Terminal -&gt; 安装
-
-启用功能
-
-
-
-
-  或者通过命令行
-
-  admin 模式（管理员权限）打开powershell
-
-
-1
-2
-dism.exe /online /enable-feature /featurename:Microsoft-W...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Xinbo on November 27, 2021
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2021/11/25/%E7%B2%BE%E7%9B%8A%E7%A0%94%E5%8F%91/">
-        <h2 class="post-title">
-            精益生产初探
-        </h2>
-        
-        <h3 class="post-subtitle">
-            为什么是丰田？丰田干了什么？
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                为什么要精益
-
-市场对硬件产品多快好省的要求：
-
-
-  多：定制化需求越来越多；
-  快：产品开发的周期持续缩短；
-  好：产品质量坚守底线持续提升；
-  省：费用持续缩减。
-
-
-丰田的成功经验：
-
-
-  高利润，能挣钱，它不香吗？
-
-
-
-
-
-  丰田19年财报
- 销售额：约合人民币19724亿元
- 纯利润：约合人民币1368亿元
-  丰田18年财报：
- 销售额：约合人民币18534亿元
- ...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Xinbo on November 25, 2021
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2021/11/24/%E6%95%8F%E6%8D%B7%E4%BB%B7%E5%80%BC%E8%A7%82/">
-        <h2 class="post-title">
-            深入理解敏捷价值观
-        </h2>
-        
-        <h3 class="post-subtitle">
-            为什么要敏捷？敏捷能带来什么？
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                背景
-
-软件开发环境的关键变化
-
-
-  
-    
-      对比项
-      早期软件开发场景
-      现代软件开发场景
-    
-  
-  
-    
-      技术门槛
-      高
-      低
-    
-    
-      应用领域
-      科学计算、航空航天、军工、银行、通讯
-      商业、社交、创新
-    
-    
-      需求稳定度
-     ...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Xinbo on November 24, 2021
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2021/11/24/Django-+-Ant-Design-Vue-%E6%90%AD%E5%BB%BAweb%E5%B9%B3%E5%8F%B0/">
-        <h2 class="post-title">
-            Django + Ant Design Vue 搭建web平台
-        </h2>
-        
-        <h3 class="post-subtitle">
-            前后端整合
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                Django + Ant Design Vue 搭建web平台——前后端整合
-
-
-  系统 ubuntu2004
-  Docker内搭建（可选）
-
-
-Django安装与初始化
-
-本地安装
-
-安装django
-
-
-  自行安装python3 及 python3-pip，本环境python版本3.8.10，建议版本3.6及以上
-
-
-1
-pip3 install django
-
-
-检查django...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Xinbo on November 24, 2021
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2021/11/23/sonarqube-%E6%90%AD%E5%BB%BA/">
-        <h2 class="post-title">
-            SonarQube部署
-        </h2>
-        
-        <h3 class="post-subtitle">
-            基于ubuntu2004
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                Ubuntu 2004 sonarqube 搭建
-
-安装依赖
-
-
-  
-    非root账户登录服务器
-  
-  
-    安装java11
-
-    1
-sudo apt install openjdk-11-jdk
-    
-  
-  
-    安装数据库 postgresql
-
-    
-      备注：SonarQube 7.9之后不再支持MySQL数据库
-    
-
-    1...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Xinbo on November 23, 2021
-    </p>
-</div>
-<hr>
-
-
-<!-- Pager -->
-
-<ul class="pager">
-    
-    
-    <li class="next">
-        <a href="/page2">Older Posts &rarr;</a>
-    </li>
-    
-</ul>
-
-
-    </div>
     <!-- Sidebar Container -->
-    <div class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-12
-      col-xs-12 sidebar-container">
-      <!-- Featured Tags -->
-      
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
 
 
 <section>
+    
+        <hr class="hidden-sm hidden-xs">
     
     <h5><a href="/archive/">FEATURED TAGS</a></h5>
     <div class="tags">
@@ -758,67 +573,77 @@ sudo apt install openjdk-11-jdk
 </section>
 
 
-      <!-- Short About -->
-      <section class="visible-md visible-lg">
-  <hr>
-  <h5><a href="/about/">ABOUT ME</a></h5>
-  <div class="short-about">
-    
-    <img src="/img/avata-me.jpg" />
-    
-    
-    <p>Xinbo 资深球迷 一个假程序员 devops入门读者 狂热的流程改进分子</p>
-    
-    <!-- SNS Link -->
-    
-
-
-<ul class="list-inline">
-
-
-  
-  
-  
-  
-  
-  
-  <li>
-    <a target="_blank" href="https://github.com/Zhangxinbo20190504">
-      <span class="fa-stack fa-lg">
-        <i class="fa fa-circle fa-stack-2x"></i>
-        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-      </span>
-    </a>
-  </li>
-  
-  
-</ul>
-  </div>
-</section>
-
-      <!-- Friends Blog -->
-      
+                <!-- Friends Blog -->
+                
 <hr>
 <h5>FRIENDS</h5>
 <ul class="list-inline">
   
 </ul>
 
-
-      <!-- Ads -->
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- first shot -->
-<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6487568398225121" data-ad-slot="4814308751"
-     data-ad-format="auto" data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
+            </div>
+        </div>
     </div>
-    
-  </div>
-</div>
+</article>
 
+<!-- add support for mathjax by voleking-->
+
+
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "hux";
+    var disqus_identifier = "/2021/12/17/docker-promethus-grafana";
+    var disqus_url = "http://localhost:4000/2021/12/17/docker-promethus-grafana/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'right',
+          // icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
 
 
 

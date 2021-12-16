@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "服务器监控大屏搭建",
+      "subtitle" : "docker部署 promethus grafana",
+      "tags"     : "工具部署, Prometheus, Grafana",
+      "url"      : "/2021/12/17/docker-promethus-grafana/",
+      "date"     : "2021-12-17 01:00:00 +0800"
+    } ,
+  
+    {
       "title"    : "Ansible实战",
       "subtitle" : "探索CI自动化部署捷径",
       "tags"     : "工具部署, Ansible",
