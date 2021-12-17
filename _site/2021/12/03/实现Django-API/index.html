@@ -589,6 +589,26 @@ python3 manage.py migrate build_info
 
 <p>使用 runserver 访问 ip:端口号/redoc 查看效果</p>
 
+<h3 id="q403-csrf-cookie-not-set-问题">Q：403 CSRF cookie not set 问题</h3>
+
+<p>当启用 DRF 后，访问后台接口可能出现 403 CSRF cookie not set 的报错，即使将Django CSRF 中间件注释掉也无法解决，这是因为 restframework 默认采用的Session认证会强制校验 CSRF，需要在settings.py中做如下定义</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="c1"># *RestFramework采用token，避免CSRF强制验证
+</span><span class="n">REST_FRAMEWORK</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">'DEFAULT_AUTHENTICATION_CLASSES'</span><span class="p">:</span> <span class="p">(</span>
+        <span class="s">'rest_framework.authentication.TokenAuthentication'</span><span class="p">,</span>
+    <span class="p">)</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>即可正确请求API</p>
+
 <h3 id="资料">资料</h3>
 
 <ul>
@@ -669,12 +689,12 @@ python3 manage.py migrate build_info
         
         
         
-                <a data-sort="0012" 
+                <a data-sort="0013" 
                     href="/archive/?tag=%E7%94%9F%E6%B4%BB"
                     title="生活"
                     rel="1">生活</a>
         
-                <a data-sort="0007" 
+                <a data-sort="0008" 
                     href="/archive/?tag=%E5%B7%A5%E5%85%B7%E9%83%A8%E7%BD%B2"
                     title="工具部署"
                     rel="6">工具部署</a>
@@ -682,59 +702,59 @@ python3 manage.py migrate build_info
                 <a data-sort="0009" 
                     href="/archive/?tag=Django"
                     title="Django"
-                    rel="4">Django</a>
+                    rel="5">Django</a>
         
-                <a data-sort="0012" 
+                <a data-sort="0013" 
                     href="/archive/?tag=%E6%95%8F%E6%8D%B7"
                     title="敏捷"
                     rel="1">敏捷</a>
         
-                <a data-sort="0012" 
+                <a data-sort="0013" 
                     href="/archive/?tag=%E7%B2%BE%E7%9B%8A"
                     title="精益"
                     rel="1">精益</a>
         
-                <a data-sort="0012" 
+                <a data-sort="0013" 
                     href="/archive/?tag=Ansible"
                     title="Ansible"
                     rel="1">Ansible</a>
         
-                <a data-sort="0012" 
+                <a data-sort="0013" 
                     href="/archive/?tag=CppCheck"
                     title="CppCheck"
                     rel="1">CppCheck</a>
         
-                <a data-sort="0012" 
+                <a data-sort="0013" 
                     href="/archive/?tag=Grafana"
                     title="Grafana"
                     rel="1">Grafana</a>
         
-                <a data-sort="0012" 
+                <a data-sort="0013" 
                     href="/archive/?tag=Jenkins"
                     title="Jenkins"
                     rel="1">Jenkins</a>
         
-                <a data-sort="0012" 
+                <a data-sort="0013" 
                     href="/archive/?tag=Prometheus"
                     title="Prometheus"
                     rel="1">Prometheus</a>
         
-                <a data-sort="0012" 
+                <a data-sort="0013" 
                     href="/archive/?tag=SonarQube"
                     title="SonarQube"
                     rel="1">SonarQube</a>
         
-                <a data-sort="0012" 
+                <a data-sort="0013" 
                     href="/archive/?tag=Vue"
                     title="Vue"
                     rel="1">Vue</a>
         
-                <a data-sort="0012" 
+                <a data-sort="0013" 
                     href="/archive/?tag=WSL"
                     title="WSL"
                     rel="1">WSL</a>
         
-                <a data-sort="0012" 
+                <a data-sort="0013" 
                     href="/archive/?tag=celery"
                     title="celery"
                     rel="1">celery</a>

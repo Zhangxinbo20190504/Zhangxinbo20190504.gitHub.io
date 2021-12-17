@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "oAuth登录",
+      "subtitle" : "Django + Ant Design Vue实现oauth登录",
+      "tags"     : "Django",
+      "url"      : "/2021/12/18/django_oauth%E7%99%BB%E5%BD%95/",
+      "date"     : "2021-12-18 00:00:00 +0800"
+    } ,
+  
+    {
       "title"    : "服务器监控大屏搭建",
       "subtitle" : "docker部署 promethus grafana",
       "tags"     : "工具部署, Prometheus, Grafana",

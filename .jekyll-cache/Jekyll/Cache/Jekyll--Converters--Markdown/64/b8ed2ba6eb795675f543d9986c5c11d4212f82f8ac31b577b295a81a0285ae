@@ -1,0 +1,381 @@
+I"F[<p>当前，有很多大型网站或者系统支持oauth登录，通过oauth登录，可以向这些大型网站请求用户信息，不用用户额外注册，减轻用户账号管理的负担，我们也将使用oauth的方式打造用户登录模块</p>
+
+<h2 id="oauth登录流程">oAuth登录流程</h2>
+
+<p>oauth登录流程图如下：</p>
+
+<p><img src="https://s2.loli.net/2021/12/17/bBSewkxCy2jqhf9.png" alt="图片名称" /></p>
+
+<p>第一步: 网页后端发现用户未登录，请求身份验证
+第二步: 用户登录后，开放平台生成登录预授权码，302跳转至重定向地址；
+第三步: 网页后端调用获取登录用户身份校验登录预授权码合法性，获取到用户身份；
+第四步: 如需其他用户信息，网页后端可调用[获取用户信息</p>
+
+<h2 id="oauth登录实现">oAuth登录实现</h2>
+
+<blockquote>
+  <p>第三方本次选择飞书，你也可以选择 微信 微博 github gitlab等，过程都差不多</p>
+
+  <p>登录实现将采用 django + ant design vue实现，环境搭建及前后端整合请参考另一篇博客<a href="https://zhangxinbo20190504.github.io/2021/11/23/Django-+-Ant-Design-Vue-%E6%90%AD%E5%BB%BAweb%E5%B9%B3%E5%8F%B0/">Django + Ant Design Vue 搭建web平台</a></p>
+</blockquote>
+
+<h3 id="前端实现">前端实现</h3>
+
+<p>首先准备两个页面 A.vue 和 B.vue，并且在vue router的配置文件中配置相应的url: url_A url_B</p>
+
+<p>A的作用主是呈现给用户的登录界面，在用户触发登录按钮时，向第三方网站发送请求，请求中带 redirect_uri 参数，用于第三方网站返回授权code重定向，redirect_uri 的值应该为 url_B</p>
+
+<p>在A 中首先定义一个button</p>
+
+<div class="language-vue highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;a-button</span>
+          <span class="na">size=</span><span class="s">"large"</span>
+          <span class="na">type=</span><span class="s">"primary"</span>
+          <span class="err">@</span><span class="na">click=</span><span class="s">"handleLoginClick()"</span>
+          <span class="na">class=</span><span class="s">"login-button"</span>
+          <span class="na">:loading=</span><span class="s">"state.loginBtn"</span>
+          <span class="na">:disabled=</span><span class="s">"state.loginBtn"</span>
+        <span class="nt">&gt;</span>
+<span class="nt">&lt;/a-button&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>用户点击后触发 handleLoginClick() 方法</p>
+
+<blockquote>
+  <p>handleLoginClick() 就是去请求第三方网站</p>
+
+  <p>请求url的格式根据第三方网站的不同可能略有区别，如有些还需要 app_secret这个参数，app_id 和 app_secret 在第三方网站注册应用的时候会给出</p>
+
+  <p>这里的url_B可能需要<a href="https://meyerweb.com/eric/tools/dencoder/">URLEncode</a>处理</p>
+</blockquote>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="p">...</span>
+<span class="nx">methods</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nx">handleLoginClick</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">loginBtn</span> <span class="o">=</span> <span class="kc">true</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Click</span><span class="dl">'</span><span class="p">)</span>
+      <span class="c1">// 请求飞书预授权码</span>
+      <span class="kd">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">https://open.feishu.cn/open-apis/authen/v1/index?app_id=&lt;your app id&gt;&amp;redirect_uri=&lt;url_B&gt;</span><span class="dl">'</span>
+      <span class="nx">location</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="nx">url</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Finish Jump</span><span class="dl">'</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="p">...</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>A的作用也就完成了</p>
+
+<p>B作为重定向的页面，负责接收第三方网站的授权code，并且用这个code去请求后台数据</p>
+
+<p>在 created 中接收到code</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="nx">created</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">_this</span> <span class="o">=</span> <span class="k">this</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Redirect Here</span><span class="dl">'</span><span class="p">)</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">code==&gt;</span><span class="dl">'</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">$route</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">code</span><span class="p">)</span>
+    <span class="nx">_this</span><span class="p">.</span><span class="nx">code</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">$route</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">code</span>
+    <span class="nx">_this</span><span class="p">.</span><span class="nx">autoLogin</span><span class="p">()</span>
+  <span class="p">},</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>autoLogin中用这个code去请求后台，调用vuex中的Login去请求后台的url，并定义成功和失败时的具体动作（这里省略）</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+</pre></td><td class="rouge-code"><pre><span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">mapActions</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vuex</span><span class="dl">'</span>
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+	<span class="p">...</span>
+	<span class="na">methods</span><span class="p">:</span> <span class="p">{</span>
+    	<span class="p">...</span><span class="nx">mapActions</span><span class="p">([</span><span class="dl">'</span><span class="s1">Login</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">Logout</span><span class="dl">'</span><span class="p">]),</span>
+        <span class="nx">autoLogin</span> <span class="p">()</span> <span class="p">{</span>
+          <span class="kd">const</span> <span class="p">{</span>
+            <span class="nx">state</span><span class="p">,</span>
+            <span class="nx">Login</span>
+          <span class="p">}</span> <span class="o">=</span> <span class="k">this</span>
+          <span class="kd">const</span> <span class="nx">loginParams</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="na">code</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">code</span>
+          <span class="p">}</span>
+          <span class="nx">Login</span><span class="p">(</span><span class="nx">loginParams</span><span class="p">)</span>
+            <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">loginSuccess</span><span class="p">(</span><span class="nx">res</span><span class="p">))</span>
+            <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">err</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">requestFailed</span><span class="p">(</span><span class="nx">err</span><span class="p">))</span>
+            <span class="p">.</span><span class="k">finally</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+              <span class="nx">state</span><span class="p">.</span><span class="nx">loginBtn</span> <span class="o">=</span> <span class="kc">false</span>
+          <span class="p">})</span>
+        <span class="p">},</span>
+	<span class="p">...</span>
+<span class="p">}</span>
+<span class="o">&lt;</span><span class="sr">/script</span><span class="err">&gt;
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>到此前端实现结束</p>
+
+<h3 id="后台实现">后台实现</h3>
+
+<p>后台接收到前端传过来的code，执行登录操作</p>
+
+<p>定义一个authenticate app，并加入到 django 的 settings.py 中</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>python3 manage.py startapp authenticate
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">...</span>
+    <span class="s">'authenticate'</span><span class="p">,</span>
+    <span class="p">...</span>
+<span class="p">]</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>在 authenticate/views.py 中定义登录视图</p>
+
+<blockquote>
+  <p>这里失败的返回码自定义，可在前端校验返回码，根据返回码不同显示不同的用户反馈</p>
+</blockquote>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="o">@</span><span class="n">require_http_methods</span><span class="p">([</span><span class="s">"POST"</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">login_view</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="n">code</span> <span class="o">=</span> <span class="n">request</span><span class="p">.</span><span class="n">POST</span><span class="p">[</span><span class="s">"code"</span><span class="p">]</span>
+    <span class="n">credentials</span> <span class="o">=</span> <span class="p">{</span><span class="s">'code'</span><span class="p">:</span> <span class="n">code</span><span class="p">}</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">authenticate</span><span class="p">(</span><span class="n">request</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">credentials</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">user</span><span class="p">:</span>
+        <span class="n">login</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">user</span><span class="p">)</span>
+        <span class="c1"># do your extra options here
+</span>        <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s">"code"</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="s">"message"</span><span class="p">:</span> <span class="s">""</span><span class="p">})</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s">"code"</span><span class="p">:</span> <span class="mi">205</span><span class="p">,</span> <span class="s">"message"</span><span class="p">:</span> <span class="s">""</span><span class="p">})</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>并在 authenticate/urls.py 中定义视图的url</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">url</span>
+<span class="kn">from</span> <span class="nn">.views</span> <span class="kn">import</span> <span class="n">login_view</span>
+<span class="n">app_name</span> <span class="o">=</span> <span class="s">'authenticate'</span>
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+	<span class="p">...</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s">'^auth/login$'</span><span class="p">,</span> <span class="n">login_view</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">'login'</span><span class="p">),</span>
+    <span class="p">...</span>
+<span class="p">]</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>并在 mysite/urls.py （Django根url，视自己情况而定）中引入 authenticate app 的 url</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">...</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s">'^api/'</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s">'authenticate.urls'</span><span class="p">)),</span>  <span class="c1"># 认证url
+</span>    <span class="p">...</span>
+<span class="p">]</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="authenticate方法原理">authenticate方法原理</h4>
+
+<p>我们的认证”证书“ credentials = {‘code’: code} ，并不是传统意义上的用户名密码，首先来看一下django的 authenticate 实现</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">authenticate</span><span class="p">(</span><span class="n">request</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">credentials</span><span class="p">):</span>
+    <span class="s">"""
+    If the given credentials are valid, return a User object.
+    """</span>
+    <span class="k">for</span> <span class="n">backend</span><span class="p">,</span> <span class="n">backend_path</span> <span class="ow">in</span> <span class="n">_get_backends</span><span class="p">(</span><span class="n">return_tuples</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">inspect</span><span class="p">.</span><span class="n">getcallargs</span><span class="p">(</span><span class="n">backend</span><span class="p">.</span><span class="n">authenticate</span><span class="p">,</span> <span class="n">request</span><span class="o">=</span><span class="n">request</span><span class="p">,</span> <span class="o">**</span><span class="n">credentials</span><span class="p">)</span>
+        <span class="k">except</span> <span class="nb">TypeError</span><span class="p">:</span>
+            <span class="c1"># This backend doesn't accept these credentials as arguments. Try the next one.
+</span>            <span class="k">continue</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">user</span> <span class="o">=</span> <span class="n">backend</span><span class="p">.</span><span class="n">authenticate</span><span class="p">(</span><span class="n">request</span><span class="o">=</span><span class="n">request</span><span class="p">,</span> <span class="o">**</span><span class="n">credentials</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">PermissionDenied</span><span class="p">:</span>
+            <span class="c1"># This backend says to stop in our tracks - this user should not be allowed in at all.
+</span>            <span class="k">break</span>
+        <span class="c1"># Annotate the user object with the path of the backend.
+</span>        <span class="k">if</span> <span class="n">user</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">user</span><span class="p">.</span><span class="n">backend</span> <span class="o">=</span> <span class="n">backend_path</span>
+        <span class="k">return</span> <span class="n">user</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>首先 for 循环会遍历django注册的认证后端</p>
+
+<p>inspect.getcallargs(backend.authenticate, request=request, **credentials)</p>
+
+<p>然后通过这句话会找到我们的credentials是否跟认证后端的 authenticate 方法参数匹配，如果匹配则选择对应的认证后端backend，并且调用backend的authenticate方法，返回一个user对象</p>
+
+<p>显然，对于我们这种类型的 credentials = {‘code’: code}  证书，是没有认证后端可以帮我们认证的，所以必须自己实现认证后端</p>
+
+<h4 id="自定义认证后端">自定义认证后端</h4>
+
+<p>在 authenticate 目录下 新建 backend.py</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+</pre></td><td class="rouge-code"><pre><span class="c1"># *飞书后端认证
+</span><span class="k">class</span> <span class="nc">LarkBackend</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+	<span class="p">...</span>
+    <span class="c1">#
+</span>    <span class="c1"># The Django auth backend API
+</span>    <span class="c1">#
+</span>    <span class="k">def</span> <span class="nf">authenticate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">'Code==&gt;'</span><span class="p">,</span> <span class="n">code</span><span class="p">)</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">_get_app_access_token</span><span class="p">()</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">_get_lark_user</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">_get_or_create_user</span><span class="p">()</span>
+        <span class="k">except</span> <span class="nb">Exception</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">traceback</span><span class="p">.</span><span class="n">format_exc</span><span class="p">())</span>
+            <span class="k">return</span>
+    
+    <span class="k">def</span> <span class="nf">get_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">):</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="p">.</span><span class="n">objects</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">user_id</span><span class="p">)</span>
+        <span class="k">except</span> <span class="nb">Exception</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">return</span> <span class="n">user</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<blockquote>
+  <p>get_user 方法在logout中会使用</p>
+</blockquote>
+
+<p>这个认证后端必须实现两个方法 authenticate get_user</p>
+
+<blockquote>
+  <p>authenticate 认证的具体细节视个人业务情况而定，这里不做展示</p>
+</blockquote>
+
+<p>authenticate 如果成功则返回一个Django user对象</p>
+
+<p>在 django settings.py中注册我们的自定义后端</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="n">AUTHENTICATION_BACKENDS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s">'django.contrib.auth.backends.ModelBackend'</span><span class="p">,</span>
+    <span class="s">'authenticate.backend.LarkBackend'</span><span class="p">,</span>  <span class="c1"># 配置为使用飞书认证
+</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>django执行authenticate 方法时会按照注册顺序依次调用后端的authenticate方法，直到返回一个user对象</p>
+
+<p>至此，实现oauth登录</p>
+:ET

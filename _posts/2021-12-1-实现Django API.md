@@ -198,6 +198,21 @@ class BuildJobView(ViewSet):
 
 使用 runserver 访问 ip:端口号/redoc 查看效果
 
+### Q：403 CSRF cookie not set 问题
+
+当启用 DRF 后，访问后台接口可能出现 403 CSRF cookie not set 的报错，即使将Django CSRF 中间件注释掉也无法解决，这是因为 restframework 默认采用的Session认证会强制校验 CSRF，需要在settings.py中做如下定义
+
+```python
+# *RestFramework采用token，避免CSRF强制验证
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    )
+}
+```
+
+即可正确请求API
+
 
 
 ### 资料
